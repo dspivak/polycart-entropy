@@ -364,14 +364,48 @@ replacement=\&]{}\ar[r,tick, "{#1}"]\&{}\end{tikzcd}}
 \maketitle
 
 \begin{abstract}
-Past work shows that one can associate a notion of Shannon entropy to a Dirichlet polynomial $d\coloneqq a_nn^\yon+\cdots+a_22^\yon+a_11^\yon+a_00^\yon$, regarded as an empirical distribution. Indeed, entropy can be extracted from any $d\in\dir$ by a two-step process, where the first step is a rig homomorphism out of $\dir$, the \emph{set} of Dirichlet polynomials, with rig structure given by standard addition and multiplication. In this short note, we show that this rig homomorphism can be upgraded to a rig \emph{functor}, when we replace the set of Dirichlet polynomials by the category of ordinary (Cartesian) polynomials.
+Past work shows that one can associate a notion of Shannon entropy to a Dirichlet polynomial $d\coloneqq a_nn^\yon+\cdots+a_22^\yon+a_11^\yon+a_00^\yon$, regarded as an empirical distribution. Indeed, entropy can be extracted from any $d\in\dir$ by a two-step process, where the first step is a rig homomorphism out of $\dir$, the \emph{set} of Dirichlet polynomials, with rig structure given by standard addition and multiplication. In this short note, we show that this rig homomorphism can be upgraded to a rig \emph{functor}, when we replace the set of Dirichlet polynomials by the category of ordinary (Cartesian) polynomials%
+\footnote{Ren\`{e} Decartes at least invented the notation, e.g.\ $\yon^2+3\yon+2$, for polynomials.}
 
 This time the process has three steps. The first step in the process is a rig functor $\polycart\to\poly$ sending a polynomial $p$ to $\dot{p}\yon$, where $\dot{p}$ is the derivative of $p$. The second is a rig functor $\poly\to\smset\times\smset\op$, sending a polynomial $q$ to the pair $(q(1),\Gamma(q))$, where $\Gamma(q)=\poly(q,\yon)$ can be interpreted as the global sections of $q$ viewed as a bundle, and $q(1)$ is its base. The last step, as for Dirichlet polynomials, is simply to extract the entropy as a real number from a pair of sets $(A,B)$; it is given by $\log A-\frac{\log B}{A}$. In summary, the entropy of $p$ is given by $\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}$.
 \end{abstract}
 
-In \cite{spivak2021dirichlet} the authors---myself and Tim Hosgood---present a process for extracting the Shannon entropy from an empirical distribution, considered as a Dirichlet polynomial. In this short no
+In \cite{spivak2021dirichlet} the authors---myself and Tim Hosgood---present a process for extracting the Shannon entropy from an empirical distribution, e.g.\ the following: 
+\begin{equation}\label{eqn.empirical}
+  \begin{tikzpicture}[scale=0.5]
+    \node at (-2,2.5) {draws};%$\dot{p}(1)\cong8\cong$};
+    \begin{scope}
+      \draw[rounded corners] (0,0) rectangle ++(6,5);
+      \foreach \y in {1,2,3,4}
+        \draw[thick,black,fill=gray] (1,\y) circle (2mm);
+      \foreach \x in {2,3,4,5}
+        \draw[thick,black,fill=gray] (\x,1) circle (2mm);
+    \end{scope}
+    \draw[thick,-Latex] (3,-0.5) to (3,-1.5);
+     \node at (3.75,-1) {$\pi$};
+   \node at (-2,-3) {outcomes};%$p(1)\cong5\cong$};
+    \begin{scope}[shift={(0,-4)}]
+      \draw[rounded corners] (0,0) rectangle ++(6,2);
+      \foreach \x in {1,2,3,4,5}
+        \draw[thick,black,fill=white] (\x,1) circle (2mm);
+    \end{scope}
+  \end{tikzpicture}
+\end{equation}
+The picture in \eqref{eqn.empirical} represents a set of five (5) possible \emph{outcomes} and eight (8) empirical \emph{draws}: four of the draws were from the first outcome, and 
+the rest were evenly distributed among the remaining four outcomes. This picture corresponds to a Dirichlet polynomial $d\coloneqq 1\cdot 4^\yon+4\cdot 1^\yon$ in the sense that $d(1)\cong 8$ and $d(0)\cong 4$. Moreover, $d$ can be regarded as a functor $\smset\op\to\smset$ and the function $\pi$ is $d$ applied to the unique function $0\to 1$. We showed that the entropy of any finite empirical distribution%
+\footnote{In the case of \eqref{eqn.empirical}, one can calculate the entropy as $H(p)=H(\{\frac{1}{2},\frac{1}{8},\frac{1}{8},\frac{1}{8},\frac{1}{8})=2$
+}
+can be extracted from a certain rig homomorphism $\dir\to\Cat{Rect}$, where $\dir$ is the rig (in $\smset$) of Dirichlet polynomials under $+$ and $\times$, and $\Cat{Rect}$ is a rig that was constructed (ad hoc) for this purpose.%
+\footnote{For example, addition in $\Cat{Rect}$ is given by
+\[(A_1,W_1)+(A_2,W_2)=(A_1+A_2,(W_1^{A_1}W_2^{A_2})^{\frac{1}{A_1+A_2}}).\]
+Luckily, we will not need to look at that formula again.}
+
+There is a duality \cite[Section 4]{spivak2020dirichlet} between Dirichlet polynomials and ordinary (Cartesian) polynomials, under which $1\cdot 4^\yon+4\cdot 1^\yon$ is sent to $1\cdot\yon^4+4\cdot\yon^1$, which we write simply as $p\coloneqq\yon^4+4\yon$. For the above bundle, we find $5\cong p(1)$ and $8\cong\dot{p}(1)$, where $\dot{p}=4\yon^3+4$ is the derivative of $p$ with respect to $\yon$. But now the map $\pi$ is inherent in $p$ and cannot simply be extracted as it was above for Dirichlet polynomials. Moreover, the map $p\mapsto\dot{p}$ is \emph{not} functorial in $p$, nor is there generally any comparison map between $p$ and $\dot{p}$. Thus while the story Hosgood and I told about Shannon entropy for Dirichlet polynomials was also technically viable for Cartesian polynomials, we decided that the story was cleaner and seemed to have better formal properties in the Dirichlet setting.
+
+However, there is a fix that we were not aware of, and this fix makes the Cartesian story much more attractive than the Dirichlet story. It is more attractive because now the function $\dir\to\Cat{Rect}$ is replaced by a \emph{functor} $\polycart\to\smset\times\smset\op$. Both the former and the latter are rig maps, i.e.\ they both preserve a notion of addition and multiplication. Certainly
 
 
 
-\printbibliography
+
+\printbibliography 
 \end{document}
