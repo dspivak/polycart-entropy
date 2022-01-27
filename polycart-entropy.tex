@@ -42,7 +42,7 @@ citecolor=orange!50!black, urlcolor=orange!50!black, pdfencoding=unicode]{hyperr
 
 
 % biblatex %
-  \addbibresource{Library20211226.bib} 
+  \addbibresource{Library20220127.bib} 
 
 % hyperref %
   \hypersetup{final}
@@ -297,6 +297,7 @@ replacement=\&]{}\ar[r,tick, "{#1}"]\&{}\end{tikzcd}}
 
 \newcommand{\yon}{\mathcal{y}}
 \newcommand{\poly}{\Cat{Poly}}
+\newcommand{\dir}{\Cat{Dir}}
 \newcommand{\polycart}{\poly^{\Cat{Cart}}}
 \newcommand{\ppoly}{\mathbb{P}\Cat{oly}}
 \newcommand{\0}{\textsf{0}}
@@ -363,8 +364,12 @@ replacement=\&]{}\ar[r,tick, "{#1}"]\&{}\end{tikzcd}}
 \maketitle
 
 \begin{abstract}
+Past work shows that one can associate a notion of Shannon entropy to a Dirichlet polynomial $d\coloneqq a_nn^\yon+\cdots+a_22^\yon+a_11^\yon+a_00^\yon$, regarded as an empirical distribution. Indeed, entropy can be extracted from any $d\in\dir$ by a two-step process, where the first step is a rig homomorphism out of $\dir$, the \emph{set} of Dirichlet polynomials, with rig structure given by standard addition and multiplication. In this short note, we show that this rig homomorphism can be upgraded to a rig \emph{functor}, when we replace the set of Dirichlet polynomials by the category of ordinary (Cartesian) polynomials.
+
+This time the process has three steps. The first step in the process is a rig functor $\polycart\to\poly$ sending a polynomial $p$ to $\dot{p}\yon$, where $\dot{p}$ is the derivative of $p$. The second is a rig functor $\poly\to\smset\times\smset\op$, sending a polynomial $q$ to the pair $(q(1),\Gamma(q))$, where $\Gamma(q)=\poly(q,\yon)$ can be interpreted as the global sections of $q$ viewed as a bundle, and $q(1)$ is its base. The last step, as for Dirichlet polynomials, is simply to extract the entropy as a real number from a pair of sets $(A,B)$; it is given by $\log A-\frac{\log B}{A}$. In summary, the entropy of $p$ is given by $\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}$.
 \end{abstract}
 
+In \cite{spivak2021dirichlet} the authors---myself and Tim Hosgood---present a process for extracting the Shannon entropy from an empirical distribution, considered as a Dirichlet polynomial. In this short no
 
 
 
