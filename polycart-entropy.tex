@@ -600,8 +600,13 @@ p\otimes (q_1+q_2)\cong (p\otimes q_1)+(p\otimes q_2),
 \]
 thus making $(\poly,0,+,\yon,\otimes)$ a distributive monoidal category, and in particular a rig monoidal category.
 
-\begin{remark}
-Some readers may be interested in the Leibniz rule, that $\dot{(p\times q)}\cong\dot{p}\times q+p\times\dot{q}$, where $\times$ is the categorical product in $\poly$. This holds, but we will not need it in this paper.
+\begin{remark}[Leibniz and chain rules]
+Some readers may be interested in the Leibniz rule and chain rule, that
+\begin{align*}
+	\dot{(p\times q)}&\cong\dot{p}\times q+p\times\dot{q}\\
+	\dot{(p\tri q)}&\cong(\dot{p}\tri q)\times\dot{q}
+\end{align*}
+where $\times$ is the categorical product and $\tri$ is the composition product in $\poly$. These hold, but we will not need them in this paper.
 \end{remark}
 
 \chapter{Main results}
@@ -644,7 +649,7 @@ The category $\smset\times\smset\op$ has a distributive monoidal structure:
 The units are $(0,1)$ and $(1,1)$ respectively.
 \end{proposition}
 \begin{proof}
-Coproducts in $\smset\op$ are products in $\smset$, justifying the first line; these clearly form a symmetric monoidal structure. For the $\otimes$-monoidal structure, note that the formula is symmetric and that $(1,1)\otimes(A_2,B_2)\cong(A_2,B_2)$ as desired. Associativity is justified as follows:
+Coproducts in $\smset\op$ are products in $\smset$, justifying the first line; these clearly form a symmetric monoidal structure. For the $\otimes$-monoidal structure, note that the formula is functorial in $A\in\smset$ and $B\in\smset\op$. It is also symmetric as well as unital: $(1,1)\otimes(A_2,B_2)\cong(A_2,B_2)$. Associativity is justified as follows:
 \begin{align*}
   (A_1,B_1)\otimes((A_2,B_2)\otimes(A_3,B_3))&\cong
   %(A_1(A_2A_3),B_1^{A_2A_3}(B_2^{A_3}B_3^{A_2})^{A_1})\\\cong
