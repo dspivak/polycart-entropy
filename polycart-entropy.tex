@@ -366,11 +366,12 @@ replacement=\&]{}\ar[r,tick, "{#1}"]\&{}\end{tikzcd}}
 \maketitle
 
 \begin{abstract}
-Past work shows that one can associate a notion of Shannon entropy to a Dirichlet polynomial $d\coloneqq a_nn^\yon+\cdots+a_22^\yon+a_11^\yon+a_00^\yon$, regarded as an empirical distribution. Indeed, entropy can be extracted from any $d\in\dir$ by a two-step process, where the first step is a rig homomorphism out of $\dir$, the \emph{set} of Dirichlet polynomials, with rig structure given by standard addition and multiplication. In this short note, we show that this rig homomorphism can be upgraded to a rig \emph{functor}, when we replace the set of Dirichlet polynomials by the category of ordinary (Cartesian) polynomials%
-\footnote{Ren\`{e} Decartes at least invented the notation, e.g.\ $\yon^2+3\yon+2$, for polynomials.}
+Past work shows that one can associate a notion of Shannon entropy to a Dirichlet polynomial $d\coloneqq a_nn^\yon+\cdots+a_22^\yon+a_11^\yon+a_00^\yon$, regarded as an empirical distribution. Indeed, entropy can be extracted from any $d\in\dir$ by a two-step process, where the first step is a rig homomorphism out of $\dir$, the \emph{set} of Dirichlet polynomials, with rig structure given by standard addition and multiplication. In this short note, we show that this rig homomorphism can be upgraded to a rig \emph{functor}, when we replace the set of Dirichlet polynomials by the \emph{category} of ordinary (Cartesian) polynomials.
 
-This time the process has three steps. The first step in the process is a rig functor $\polycart\to\poly$ sending a polynomial $p$ to $\dot{p}\yon$, where $\dot{p}$ is the derivative of $p$. The second is a rig functor $\poly\to\smset\times\smset\op$, sending a polynomial $q$ to the pair $(q(1),\Gamma(q))$, where $\Gamma(q)=\poly(q,\yon)$ can be interpreted as the global sections of $q$ viewed as a bundle, and $q(1)$ is its base. The last step, as for Dirichlet polynomials, is simply to extract the entropy as a real number from a pair of sets $(A,B)$; it is given by $\log A-\frac{\log B}{A}$. In summary, the entropy of $p$ is given by $\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}$.
+In the Cartesian case, the process has three steps. The first step is a rig functor $\polycart\to\poly$ sending a polynomial $p$ to $\dot{p}\yon$, where $\dot{p}$ is the derivative of $p$. The second is a rig functor $\poly\to\smset\times\smset\op$, sending a polynomial $q$ to the pair $(q(1),\Gamma(q))$, where $\Gamma(q)=\poly(q,\yon)$ can be interpreted as the global sections of $q$ viewed as a bundle, and $q(1)$ is its base. The last step, as for Dirichlet polynomials, is simply to extract the entropy as a real number from a pair of sets $(A,B)$; it is given by $\log A-\frac{\log B}{A}$. In summary, the entropy of $p$ is given by $\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}$.
 \end{abstract}
+
+\chapter{Introduction}
 
 In \cite{spivak2021dirichlet} the authors---myself and Tim Hosgood---present a process for extracting the Shannon entropy from an empirical distribution, e.g.\ the following: 
 \begin{equation}\label{eqn.empirical}
@@ -394,33 +395,37 @@ In \cite{spivak2021dirichlet} the authors---myself and Tim Hosgood---present a p
   \end{tikzpicture}
 \end{equation}
 The picture in \eqref{eqn.empirical} represents a set of five (5) possible \emph{outcomes} and eight (8) empirical \emph{draws}: four of the draws were from the first outcome, and 
-the rest were evenly distributed among the remaining four outcomes. This picture corresponds to a Dirichlet polynomial $d\coloneqq 1\cdot 4^\yon+4\cdot 1^\yon$ in the sense that $d(1)\cong 8$ and $d(0)\cong 4$. Moreover, $d$ can be regarded as a functor $\smset\op\to\smset$ and the function $\pi$ is $d$ applied to the unique function $0\to 1$. We showed that the entropy of any finite empirical distribution%
-\footnote{In the case of \eqref{eqn.empirical}, one can calculate the entropy as $H(p)=H(\{\frac{1}{2},\frac{1}{8},\frac{1}{8},\frac{1}{8},\frac{1}{8})=2$
-}
-can be extracted from a certain rig homomorphism $\dir\to\rect$, where $\dir$ is the rig (in $\smset$) of Dirichlet polynomials under $+$ and $\times$, and $\rect$ is a rig that was constructed (ad hoc) for this purpose.%
+the rest were evenly distributed among the remaining four outcomes. This picture corresponds to a Dirichlet polynomial $d(\yon)\coloneqq 1\cdot 4^\yon+4\cdot 1^\yon$ in the sense that $d(1)\cong 8$ and $d(0)\cong 4$. Moreover, $d$ can be regarded as a functor $d\colon\smset\op\to\smset$ and the function $\pi$ is $d$ applied to the unique function $0\to 1$. We showed that the entropy of any finite empirical distribution can be extracted after sending the corresponding Dirichlet polynomial $d$ through a certain rig homomorphism $\dir\to\rect$, where $\dir$ is the rig (in $\smset$) of Dirichlet polynomials under $+$ and $\times$, and $\rect$ is a rig that was constructed (ad hoc) for this purpose.%
 \footnote{For example, addition in $\rect$ is given by sums and weighted geometric means:
 \[(A_1,W_1)+(A_2,W_2)=(A_1+A_2,(W_1^{A_1}W_2^{A_2})^{\frac{1}{A_1+A_2}}).\]
 Luckily, we will not need to look at that formula again.}
+In the case of \eqref{eqn.empirical}, one can calculate the entropy as 
+\begin{equation}\label{eqn.example_entropy}
+H(p)=H\left(\frac{1}{2},\frac{1}{8},\frac{1}{8},\frac{1}{8},\frac{1}{8}\right)=2.
+\end{equation}
 
-There is a duality \cite[Section 4]{spivak2020dirichlet} between Dirichlet polynomials and ordinary (Cartesian) polynomials, under which $1\cdot 4^\yon+4\cdot 1^\yon$ is sent to $1\cdot\yon^4+4\cdot\yon^1$, which we write simply as $p\coloneqq\yon^4+4\yon$. For the above bundle, we find $5\cong p(1)$ and $8\cong\dot{p}(1)$, where $\dot{p}=4\yon^3+4$ is the derivative of $p$ with respect to $\yon$. But now the map $\pi$ is inherent in $p$ and cannot simply be extracted as it was above for Dirichlet polynomials. Moreover, the map $p\mapsto\dot{p}$ is \emph{not} functorial in $p$, nor is there generally any comparison map between $p$ and $\dot{p}$. Thus while the story Hosgood and I told about Shannon entropy for Dirichlet polynomials was also technically viable for Cartesian polynomials, we decided that the story was cleaner and seemed to have better formal properties in the Dirichlet setting.
 
-However, there is a fix that we were not aware of, and this fix makes the Cartesian story much more attractive than the Dirichlet story. It is more attractive because now the \emph{function} $\dir\to\rect$ is replaced by a \emph{functor} $\polycart\to\smset\times\smset\op$. Both the former and the latter are rig maps, i.e.\ they both preserve a notion of addition and multiplication. Certainly the category $\smset\times\smset\op$ is not ad hoc, though one needs to define a symmetric monoidal product on it
+There is a duality \cite[Section 4]{spivak2020dirichlet} between Dirichlet polynomials and ordinary (Cartesian) polynomials,%
+\footnote{Ren\`{e} Decartes at least invented the notation, e.g.\ $\yon^2+3\yon+2$, for polynomials; hence we refer to them as \emph{Cartesian polynomials} when we need to distinguish them from Dirichlet polynomials.}
+ under which $1\cdot 4^\yon+4\cdot 1^\yon$ is sent to $1\cdot\yon^4+4\cdot\yon^1$, which we write simply as $p\coloneqq\yon^4+4\yon$. For the above bundle, we find $5\cong p(1)$ and $8\cong\dot{p}(1)$, where $\dot{p}=4\yon^3+4$ is the derivative of $p$ with respect to $\yon$. But now the map $\pi$ is inherent in $p$ and cannot simply be extracted as it was above for Dirichlet polynomials. Moreover, the map $p\mapsto\dot{p}$ is \emph{not} functorial in $p\in\poly$, nor is there generally any comparison map between $p$ and $\dot{p}$. Thus while the story Hosgood and I told about Shannon entropy for Dirichlet polynomials was also technically viable for Cartesian polynomials, we decided that the story was cleaner and seemed to have better formal properties in the Dirichlet setting.
+
+However, there is a fix that we were not aware of, and this fix makes the Cartesian story more categorical than the Dirichlet story. Indeed, the \emph{function} $\dir\to\rect$ is replaced by a \emph{functor} $\hh\colon\polycart\to\smset\times\smset\op$. Both the former and the latter are rig maps, i.e.\ they both preserve a notion of addition and multiplication. However to define it, we must define a second monoidal product on  $\smset\times\smset\op$, namely
 \[
-	(A_1,B_1)\otimes(A_2,B_2)\coloneqq\left(A_1A_2\,,\,B_1^{A_2}B_2^{A_1}\right),
+	(A_1,B_1)\otimes(A_2,B_2)\coloneqq\left(A_1A_2\,,\,B_1^{A_2}B_2^{A_1}\right).
 \]
-previous uses of which I am not aware. This monoidal product $\otimes$ distributes over the coproduct, making $\smset\times\smset\op$ a distributive monoidal category, and in particular a \emph{rig category}.
+This monoidal product $\otimes$ distributes over the coproduct, making $\smset\times\smset\op$ a distributive monoidal category, and in particular a \emph{rig category}.
 
-There are two pieces left to describe: the functor $\polycart\to\smset\times\smset\op$ and the function $\ob(\smset\times\smset\op)\To{h}\rr$ that extracts the entropy. The latter is the following, somewhat strange-looking formula:
+There are two pieces left to describe: the functor $\polycart\To{\hh}\smset\times\smset\op$ and the partial function $\ob(\smset\times\smset\op)\To{L}\rr$ that extracts the entropy. The latter is roughly the following, somewhat strange-looking formula:
 \[
-h(A,B)\coloneqq\log A - \frac{\log B}{A}.
+L(A,B)\coloneqq\log A - \frac{\log B}{A}.
 \]
-The point is that this is merely a final extraction phase, whereas our interest is in the rig functor $\polycart\to\smset\times\smset\op$. It can be factored into two parts:
+The point is that $L$ merely represents a final real-number-extraction phase; it will be defined precisely in \cref{sec.entropy}. The majority of our attention in this paper is focused on the rig functor $\hh\colon\polycart\to\smset\times\smset\op$, which can be factored into two parts:
 \[
-\polycart\To{p\mapsto\dot{p}\yon}\poly\To{q\mapsto\big(q(1),\Gamma(q)\big)}\smset\times\smset\op
+\polycart\To{p\mapsto\dot{p}\yon}\poly\To{q\mapsto\big(q(1),\Gamma(q)\big)}\smset\times\smset\op,
 \]
-We will explain these two functors in the main section, in particular the fact that each preserves the rig structure; for now we merely note that $\Gamma(q)\coloneqq\poly(q,\yon)$.
+where $\Gamma(q)\coloneqq\poly(q,\yon)$. We will explain these two functors and all the notation involved when we get to \cref{chap.background,chap.main}. We are primarily interested in the fact that each of the above functors preserves the rig structure (i.e.\ each is strong monoidal with respect to $+$ and $\otimes$).
 
-For now, we conclude our summary by simply giving the full composite: the function that takes a polynomial $p$ and returns its entropy is given by
+We conclude our summary by giving the full composite: the function that takes a polynomial $p$ and returns the entropy of the corresponding empirical distribution is given by
 \[
   H(p)\coloneqq\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}
 \]
@@ -434,10 +439,16 @@ For example, consider the polynomial $p=\yon^4+4\yon$, depicted in \eqref{eqn.em
 ,\qand 
 H(p)=\log 8-\frac{\log 2^8}{8}=2
 \]
+which agrees with the calculation in \eqref{eqn.example_entropy}.
 
-The paper is quite short, and the introduction was written so that people familiar with $\poly$ may not need to read further. For less familiar readers, we include two additional sections: a section giving the relevant background on $\poly$ and $\polycart$, and a section proving the main results.
+The paper is fairly short, and the introduction was written so that people familiar with $\poly$ may not need to read further. For less familiar readers, we include two additional sections: a section giving the relevant background on $\poly$ and $\polycart$, and a section proving the main results.
 
-\chapter{Background}
+There have been other categorical approaches to entropy, most notably \cite{baez2011characterization}, \cite{baez2014bayesian}, and \cite{leinster2021entropy}. Our presentation here has little in common with those. I should also mention that current story differs from the Dirichlet story in \cite{spivak2021dirichlet} in a way not mentioned above. The Dirichlet story offers a geometric view of entropy by reorganizing a bundle into a rectangular one, where the log-length is precisely the entropy. This may be more valuable for certain readers than the present paper, which trades away this geometric intuition in exchange for a significant increase in category-theoretic structure.
+
+\section*{Acknowledgments}
+This material is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-20-1-0348.
+
+\chapter{Background on polynomial functors}\label{chap.background}
 
 %---- Section ----%
 \section{Basics}
@@ -454,7 +465,7 @@ A \emph{polynomial functor} is a functor $p\colon\smset\to\smset$ that is isomor
 \[
 p\cong\sum_{t\in T}\yon^{p[t]}.
 \]
-We call $T$ the set of \emph{$p$-types}, and for each type $t\in T$ we call $p[t]$ the set of \emph{$p$-terms of type $t$}.%
+We refer to $T$ as the set of \emph{$p$-types}, and for each type $t\in T$ we refer to $p[t]$ as the set of \emph{$p$-terms of type $t$}.%
 
 A \emph{morphism} $\varphi\colon p\to p'$ of polynomial functors is simply a natural transformation between them. It is called \emph{cartesian} if for every map of sets $f\colon S\to S'$, the naturality square
 \[
@@ -472,21 +483,28 @@ p=\sum_{I\in p(1)}\yon^{p[I]}
 so that the $p$-types are written with upper-case letters, e.g. $I\in p(1)$, and its terms are written with corresponding lower-case letters, e.g. $i\in p[I]$.
 
 \begin{remark}\label{rem.positions_and_directions}
-Using the Yoneda lemma, we can understand a morphism $p\to q$ in $\poly$ to consist of two parts $(\varphi_1,\varphi^\sharp)$ as follows:
+Using the Yoneda lemma, the fact that a morphism in $\poly$ is just a natural transformation, and the fact that a polynomial is a coproduct of representables, we derive
+\begin{align*}
+	\poly(p,q)&=
+	\poly\left(\sum_{I\in p(1)}\yon^{p[I]},\sum_{J\in p(1)}\yon^{q[J]}\right)\\&\cong
+	\prod_{I\in p(1)}\poly\left(\yon^{p[I]},\sum_{J\in p(1)}\yon^{q[J]}\right)\\&\cong
+	\prod_{I\in p(1)}\sum_{J\in q(1)}\smset(q[J],p[I]).
+\end{align*}
+Thus we can understand a morphism $p\to q$ in $\poly$ to consist of two parts $(\varphi_1,\varphi^\sharp)$ as follows:
 \begin{equation}\label{eqn.mapsharp}
   \varphi_1\colon p(1)\to q(1)
   \qqand
   \varphi^\sharp_I\colon q[J]\to p[I],
 \end{equation}
-where $J\coloneqq\varphi_1(I)$. That is, $\varphi_1$ is a function from $p$-types to $q$-types, and $\varphi^\sharp_i$ is a function on terms that \emph{depends on a choice of position $I\in p(1)$}. We refer to $\varphi_1$ as the \emph{on-types function} and to $\varphi^\sharp$ as the \emph{backwards on-terms} function.
+where $J\coloneqq\varphi_1(I)$. That is, $\varphi_1$ is a function from $p$-types to $q$-types, and $\varphi^\sharp_i$ is a function on terms that \emph{depends on a choice of position $I\in p(1)$}. We refer to $\varphi_1$ as the \emph{on-types function} and to $\varphi^\sharp$ as the \emph{backwards on-terms} function. 
 
 One can check that a map $\varphi\colon p\to q$ is cartesian iff the backwards-on-terms function $\varphi^\sharp_I$ is a bijection $p[I]\cong q[\varphi_1I]$ for each type $I\in p(1)$.
 \end{remark}
 
 \begin{example}[Positions and global sections, $\Gamma$]\label{ex.pos_glob}
-For any polynomial $p$, we will be particularly interested in two sorts of maps: $\yon\to p$ and $p\to\yon$. The former is easy: a map $\yon\to p$ is given on types by choosing a single type $I\in p(1)$ to be the image of the unique type $!\in\yon(1)$ and backward on terms there is a unique choice of function $p[I]\to 1=\yon[!]$. Thus we have $p(1)\cong\poly(\yon,p)$.
+For any polynomial $p$, we will be particularly interested in two sorts of maps: $\yon\to p$ and $p\to\yon$. The former is easy: a map $\yon\to p$ is given on types by choosing a single type $I\in p(1)$ to be the image of the unique type $!\in\yon(1)$ and given backward on terms using the unique choice of function $p[I]\to 1=\yon[!]$. Thus we have $p(1)\cong\poly(\yon,p)$.
 
-More interesting are the maps $\gamma\colon p\to\yon$. This time $\gamma$ is trivial on types: each type $I\in p(1)$ is sent to the unique type $!\in\yon(1)$. However on terms, we need a map $\varphi^\sharp_I\colon 1\to p[I]$ for each $I$, meaning a choice of term $i\in I$ for each $I$. In other words, writing $\Gamma(p)\coloneqq\poly(p,\yon)$, we have
+More interesting are the maps $\gamma\colon p\to\yon$. This time $\gamma$ is trivial on types: each type $I\in p(1)$ is sent to the unique type $!\in\yon(1)$. However on terms, we need a map $\varphi^\sharp_I\colon 1\to p[I]$ for each $I$, meaning a choice of term $i\in I$ for each $I\in p(1)$. In other words, writing $\Gamma(p)\coloneqq\poly(p,\yon)$, we have
 \begin{equation}\label{eqn.global}
 \Gamma(p)\cong\prod_{I\in p(1)}p[I].
 \end{equation}
@@ -540,34 +558,37 @@ given by $F(p)\coloneqq (p(1),\Gamma(p))$. In fact, $F$ is a left adjoint, but w
 \section{Derivatives and bundles}
 
 We can understand polynomial functors in terms of bundles, using the derivative. For any polynomial $p$, its derivative $\dot{p}$ is defined as follows:
-\[
+\begin{equation}\label{eqn.dotp}
 \dot{p}\coloneqq\sum_{I\in p(1)}\sum_{i\in p[I]}\yon^{p[I]-\{i\}}
-\]
-where $p[I]-\{i\}$ denotes the set-difference. Note that $\dot{p}(1)\cong\sum_{I\in p(1)}p[I]$ is the set of all $p$-terms, and it comes with a map $\dot{p}(1)\to p(1)$ to the set of $p$-types. This map of sets---which we call a bundle---is often understood to be the polynomial itself. A map of polynomials $\varphi\colon p\to q$ can be written in terms of these bundles:
+\end{equation}
+where $p[I]-\{i\}$ denotes the set-difference. Note that $\dot{p}(1)\cong\sum_{I\in p(1)}p[I]$ is the set of all $p$-terms, and it comes with a map $\dot{p}(1)\to p(1)$ to the set of $p$-types. Often in the literature, this map of sets---which we call a bundle---is taken to be the polynomial itself. A map of polynomials $\varphi\colon p\to q$ can be written in terms of these bundles:
 \[
 \begin{tikzcd}
 	\dot{p}(1)\ar[d]&p(1)\times_{q(1)}\dot{q}(1)\ar[l, "\varphi^\sharp"']\ar[r]\ar[d]&\dot{q}(1)\ar[d]\\
 	p(1)\ar[r, equal]&p(1)\ar[r, "\varphi_1"']&q(1)\ar[ul, phantom, very near end, "\lrcorner"]
 \end{tikzcd}
 \]
-Again, $\varphi$ is cartesian if $\varphi^\sharp$ is a bijection.
+Just as in \cref{rem.positions_and_directions}, one provides a forward map on types $\varphi_1\colon p(1)\to q(1)$, at which point one takes the pullback of that map with $\dot{q}(1)\to q(1)$, and then one provides a backward map $\varphi^\sharp\colon p(1)\times_{q(1)}\dot{q}(1)\to \dot{p}(1)$ on directions.
+Again, $\varphi$ is cartesian iff $\varphi^\sharp$ is a bijection.
 
-\begin{remark}
-Note that $\dot{p}$ is not functorial in $p\in\poly$. Indeed, there exists a unique map $\yon\to\yon^2$, but there does not exist a map $1\to 2\yon$.
-
-There is also no reasonable comparison map between $\dot{p}$ and $p$ in general. It simply cannot go $\dot{p}\to p$ since there is no map $1\to\yon$, and if we take it to go $p\to\dot{p}$ then which map $\yon^2\to 2\yon$ should we use? Instead we use the following.
-\end{remark}
-
-\begin{proposition}
-The assignment $E(p)\coloneqq\dot{p}\yon$ is a functor $E\colon\polycart\to\polycart$, and it is equipped with a map $E(p)\to p$, natural in $p\in\polycart$.
+\begin{proposition}\label{prop.dotpy}
+The assignment $p\mapsto\dot{p}\yon$ is a functor $\polycart\to\polycart$.
 \end{proposition}
 \begin{proof}
-We can think of $E(p)\coloneqq\dot{p}\yon$ as follows:
+We can think of $\dot{p}\yon$ as follows:
 \begin{equation}\label{eqn.derivy}
 \dot{p}\yon\cong\sum_{I\in p(1)}\sum_{i\in p[I]}\yon^{p[I]}
 \end{equation}
-Given a cartesian map $\varphi\colon p\to q$, the bijection $\varphi^\sharp\colon q[\varphi_1(I)]\cong p[I]$ lets us define a map $\dot{p}\yon\to\dot{q}\yon$ in an obvious way. The required map $\dot{p}\yon\to p$ is cartesian and is given on types by $(I,i)\mapsto I$; it is clearly natural in $p\in\polycart$.
+Given a cartesian map $\varphi\colon p\to q$, the bijection $\varphi^\sharp\colon q[\varphi_1(I)]\cong p[I]$ lets us define a map $\dot{p}\yon\to\dot{q}\yon$ in an obvious way. 
 \end{proof}
+
+\begin{remark}
+In fact, the assignment $(p\mapsto\dot{p}\yon)\colon\polycart\to\polycart$ extends to a comonad on $\polycart$. The counit map $\epsilon_p\colon\dot{p}\yon\to p$ is cartesian and is given on types by $(I,i)\mapsto I$. The comultiplication $\delta_p\colon\dot{p}\yon\to\ddot{p}\yon^2+\dot{p}\yon$ is given by the coproduct inclusion.
+
+A coalgebra for this comonad is a polynomial $p$ equipped with a map $\gamma\colon p\to\dot{p}\yon$ such that $\epsilon_p\circ\gamma=\id_p$; it is not hard to check that the other condition holds for free. Hence a coalgebra structure on $p$ can be identified with a choice a global section $p\to\yon$, i.e.\ an element $\gamma\in\Gamma(p)$. Of course the map $p\to\yon$ is not cartesian in general, so the only way it can be encoded in $\polycart$ is via this coalgebra structure. A map of coalgebras is a cartesian map $\varphi\colon p\to p'$ that commutes with the global sections: $\Gamma(\varphi)(\gamma')=\gamma$.
+
+The above is intriguing in that $\Gamma(p)$ is a major player in the story of this paper, but we currently know of no further connection between entropy and this comonad. 
+\end{remark}
 
 \section{Rig monoidal structure}
 
@@ -585,7 +606,7 @@ We will also be interested in another monoidal product called \emph{Dirichlet pr
 \end{equation}
 This gives a symmetric monoidal structure $(\poly,\yon,\otimes)$. A type in $p\otimes q$ is just a pair of types $(I,J)\in p(1)\times q(1)$ and a term of it is just a pair of terms $(i,j)\in p[I]\times q[J]$.
 
-In terms of bundles, $p+q$ and $p\otimes q$ are respectively given by
+In the language of bundles, $p+q$ and $p\otimes q$ are respectively given by
 \[
 \begin{tikzcd}
 	\dot{p}(1)+\dot{q}(1)\ar[d]&\dot{p}(1)\times\dot{q}(1)\ar[d]\\
@@ -609,21 +630,21 @@ Some readers may be interested in the Leibniz rule and chain rule, that
 where $\times$ is the categorical product and $\tri$ is the composition product in $\poly$. These hold, but we will not need them in this paper.
 \end{remark}
 
-\chapter{Main results}
+\chapter{Main results}\label{chap.main}
 
-We divide this section into two pieces. \cref{sec.CT} is the category theory, providing what seems to be a novel symmetric monoidal structure on $\smset\times\smset\op$ and showing that both $p\mapsto\dot{p}\yon$ and $q\mapsto(q(1),\Gamma(q))$ are rig functors. At the end of this section, we will have a rig functor $\polycart\to\smset\times\smset\op$.
+We divide this section into two parts. \cref{sec.CT} is the category theory part, in which we provide what seems to be a novel symmetric monoidal structure on $\smset\times\smset\op$ and show that both $p\mapsto\dot{p}\yon$ and $q\mapsto(q(1),\Gamma(q))$ are rig functors. At the end of this section, we will have a rig functor $\hh\colon\polycart\to\smset\times\smset\op$ that does the categorical work of Shannon entropy.
 
-\cref{sec.entropy} is the finishing step, providing a function $\smset\times\smset\op\to\rr$ and showing that when it is combined with the above, the map $H\colon\ob(\polycart)\to\rr$ sends a polynomial $p$ the Shannon entropy of the empirical distribution defined by $p$.
+\cref{sec.entropy} is the finishing step, providing a function $\ob(\smset\times\smset\op)\to\rr$ and showing that when it is combined with the above, the map $H\colon\ob(\polycart)\to\rr$ sends an appropriately finite polynomial $p$ to the Shannon entropy of the empirical distribution defined by $p$.
 
 \section{Category theory}\label{sec.CT}
 
-Below we will often denote products merely by juxtaposition, both for polynomials $pq\coloneqq p\times q$ and for sets $AB\coloneqq A\times B$.
+Below we will often denote products merely by juxtaposition, both for polynomials $p\yon\coloneqq p\times \yon$ and for sets $AB\coloneqq A\times B$.
 
 \begin{proposition}
-The functor $\dot{p}\yon$ is a rig functor $\polycart\to\polycart$. 
+The functor $\dot{p}\yon$ from \cref{prop.dotpy} is a rig functor $\polycart\to\polycart$. 
 \end{proposition}
 \begin{proof}
-Clearly $\dot{0}=0$ and $\dot{(p+q)}\cong\dot{p}+\dot{q}$, and by multiplying both sides by $\yon$ we see that $E$ preserves the coproduct structure. There is an isomorphism $\dot{\yon}\yon\cong\yon$, and for any $p,q\in\polycart$ there is also an isomorphism $\dot{(p\otimes q)}\yon\cong(\dot{p}\yon)\otimes(\dot{q}\yon)$, as follows from \eqref{eqn.derivy} and \eqref{eqn.dir_formula}; thus $p\mapsto\dot{p}\yon$ preserves the $\otimes$-structure. All of these isomorphisms are natural in $p,q\in\polycart$, completing the proof.
+Clearly $\dot{0}=0$ and $\dot{(p+q)}\cong\dot{p}+\dot{q}$, and by multiplying both sides by $\yon$ we see that the functor $p\mapsto p\yon$ preserves the coproduct structure. There is an isomorphism $\dot{\yon}\yon\cong\yon$, and for any $p,q\in\polycart$ there is also an isomorphism $\dot{(p\otimes q)}\yon\cong(\dot{p}\yon)\otimes(\dot{q}\yon)$, as follows from \eqref{eqn.derivy} and \eqref{eqn.dir_formula}; thus $p\mapsto\dot{p}\yon$ preserves the $\otimes$-structure. All of these isomorphisms are natural in $p,q\in\polycart$, completing the proof.
 \end{proof}
 
 The following corollary is straightforward, since $\polycart$ inherits $+$ and $\otimes$ from the forgetful functor $\polycart\to\poly$.
@@ -637,7 +658,7 @@ For any polynomial $p$, we have
 \[
 \Gamma(\dot{p}\yon)\cong\prod_{I\in p(1)}p[I]^{p[I]}.
 \]
-This formula---which follows directly from \cref{eqn.global,eqn.derivy}---will be relevant when connecting the category theory to the entropy later on. 
+This formula---which follows directly from \cref{eqn.global,eqn.derivy}---will be relevant when connecting the category theory to Shannon entropy later on. 
 \end{example}
 
 \begin{proposition}
@@ -658,10 +679,10 @@ Coproducts in $\smset\op$ are products in $\smset$, justifying the first line; t
 \end{align*}
 There is an absorption map $(0,1)\otimes (A,B)\cong(0,B)\to(0,1)$, and the distributivity of $\otimes$ over $+$ is justified as follows:
 \begin{align*}
-  (A,B)\otimes((A_1,B_1)+(A_2,B_2))&\cong 
-  (A(A_1+A_2),B^{A_1+A_2}(B_1B_2)^A)\\&\cong
-  (AA_1+AA_2,B^{A_1}B^{A_2}B_1^AB_2^A)\\&\cong
-  ((A,B)\otimes(A_1,B_1))+((A,B)\otimes(A_2,B_2)).
+  (A,B)\otimes\big((A_1,B_1)+(A_2,B_2)\big)&\cong 
+  \big(A(A_1+A_2),B^{A_1+A_2}(B_1B_2)^A\big)\\&\cong
+  \big(AA_1+AA_2,B^{A_1}B^{A_2}B_1^AB_2^A\big)\\&\cong
+  \big((A,B)\otimes(A_1,B_1))+((A,B)\otimes(A_2,B_2)\big).
 \end{align*}
 We leave the remaining details to the interested reader.
 \end{proof}
@@ -670,11 +691,11 @@ We leave the remaining details to the interested reader.
 The functor $F\colon\poly\to\smset\times\smset\op$ from \eqref{eqn.fundamental} is a rig functor.
 \end{proposition}
 \begin{proof}
-Recall that $F(p)\coloneqq(p(1),\Gamma(p))$. Clearly $0(1)=0$ and $(p+q)(1)\cong p(1)+q(1)$. Also $\Gamma(0)=1$ and $\Gamma(p+q)\cong\Gamma(p)\times\Gamma(q)$; hence $F$ preserves coproducts. Moreover, we have $\yon(1)=1$ and $(p\otimes q)(1)\cong p(1)\times q(1)$ and $\Gamma(\yon)= 1$, so to show that $F$ preserves the $\otimes$ structure, it remains only to show 
+Recall from \eqref{eqn.fundamental} that $F(p)\coloneqq(p(1),\Gamma(p))$. Clearly $0(1)=0$ and $(p+q)(1)\cong p(1)+q(1)$. Also $\Gamma(0)=1$ and $\Gamma(p+q)\cong\Gamma(p)\times\Gamma(q)$; hence $F$ preserves the $(0,+)$ monoidal structure. Moreover, we have $\yon(1)=1$ and $(p\otimes q)(1)\cong p(1)\times q(1)$ and $\Gamma(\yon)= 1$, so to show that $F$ preserves the $(\yon,\otimes)$ monoidal structure, it remains only to provide an isomorphism 
 \[
-  \Gamma(p\otimes q)\cong \Gamma(p)^{q(1)}\times\Gamma(q)^{p(1)}
+  \Gamma(p\otimes q)\cong \Gamma(p)^{q(1)}\times\Gamma(q)^{p(1)}.
 \]
-This is justified as follows:
+It is given as follows:
 \begin{align*}
 	\Gamma(p\otimes q)&\cong
 	\prod_{(I,J)\in p(1)\times q(1)}p[I]q[J]\\&\cong
@@ -685,28 +706,41 @@ This is justified as follows:
 \end{align*}
 \end{proof}
 
-Noting that $(\dot{p}\yon)(1)\cong\dot{p}(1)$, we can summarize the section above. Namely, the functors $E\colon\polycart\to\poly$ and $F\colon\poly\to\smset\to\smset\op$ from \cref{cor.E,prop.F} compose to form a rig functor $\hh\coloneqq F\circ E$ given by
+We summarize the above section before we go on to the next. Namely, the functors $E\colon\polycart\to\poly$ and $F\colon\poly\to\smset\to\smset\op$ from \cref{cor.E,prop.F} compose to form a rig functor $\hh\coloneqq F\circ E$ given by
 \begin{equation}\label{eqn.entropy_data}
 \begin{aligned}
 	\polycart&\To{\mathcal{h}}\smset\times\smset\op\\
 	p&\mapsto (\dot{p}(1),\Gamma(\dot{p}\yon)).
 \end{aligned}
 \end{equation}
-We refer to $\hh(p)$ as \emph{the entropy data} of the polynomial $p$.
+Here we are using the fact that $(\dot{p}\yon)(1)\cong\dot{p}(1)$.
+
+We refer to $\hh(p)\in\smset\times\smset\op$ as \emph{the entropy data} of the polynomial $p$. These two sets contain everything one needs in order to compute $p$'s entropy---as we'll see in \cref{thm.main}---and they are rig-functorial in $p$.
 
 \section{Shannon entropy}\label{sec.entropy}
 
 We define a partial function $L\colon\ob(\smset\times\smset\op)\to\rr$ by
 \begin{equation}\label{eqn.L}
-(A,B)\mapsto \log A-\frac{\log B}{A}
+(A,B)\mapsto \log A-\frac{\log B}{A}.
 \end{equation}
-When $A=0$ and $B=1$, we define this function to be $L(0,1)=0$; for all other cases where $A=0$, $B=0$, or either $A$ or $B$ is infinite we leave $L(A,B)$ undefined. We will be only interested in this map when it is is composed with the entropy data $\mathcal{h}$ from \eqref{eqn.entropy_data}.
+When $A=0$ and $B=1$, we define this function to be $L(0,1)=0$; for all cases where $A=0$, or $B=0$, or either $A$ or $B$ is infinite, we leave $L(A,B)$ undefined. We will be only interested in this map when it is is composed with the entropy data $\mathcal{h}$ from \eqref{eqn.entropy_data}, and \cref{lemma.dontworry} says that we do not need to worry about the undefined cases.
 
-\begin{lemma}
-Let $p\in\polycart$ with $(A,B)\coloneqq\hh(p)$. Then $B\neq 0$ and if $A=0$ then $B=1$.
+\begin{lemma}\label{lemma.dontworry}
+Let $p\in\polycart$ with entropy data $(A,B)\coloneqq\hh(p)$, and suppose that $\card\dot{p}(1)<\infty$. Then we have that
+\begin{enumerate}[label=\roman*.]
+	\item $B\neq 0$,
+	\item if $A=0$ then $B=1$, and
+	\item both $A$ and $B$ are finite.
+\end{enumerate}
 \end{lemma}
 \begin{proof}
-We have $A\coloneqq\dot{p}(1)$ and $B\coloneqq\Gamma(\dot{p}\yon)$. One easily checks using \cref{ex.pos_glob} that for any $q\in\poly$, the set $\Gamma(q\yon)\neq0$ is nonempty since every $(q\yon)$-type has at least one term. If $\dot{p}(1)=0$ then $p=P\in\smset$ is constant, so $\dot{p}\yon=0$ as well, and $\Gamma(0)=1$.
+By definition of $\hh$, we have that $A\coloneqq\dot{p}(1)$ and $B\coloneqq\Gamma(\dot{p}\yon)$. 
+\begin{enumerate}[label=\roman*.]
+	\item One easily checks using \eqref{eqn.global} that for any $q\in\poly$, the set $\Gamma(q\yon)\neq0$ is nonempty since every $(q\yon)$-type has at least one term. 
+	\item If $\dot{p}(1)=0$ then $p\in\smset$ is constant, so $\dot{p}\yon=0$ as well, and $\Gamma(0)=1$ by \eqref{eqn.global}.
+	\item By assumption $\card A=\card\dot{p}(1)<\infty$. For $B$, note that there are only a finite number of $I\in p(1)$ for which $p[I]$ is nonempty, so by \eqref{eqn.global} and \eqref{eqn.dotp} the set $\Gamma(\dot{p}\yon)$ is finite.
+\qedhere
+\end{enumerate}
 \end{proof}
 
 \begin{definition}[Empirical distribution]
@@ -719,11 +753,11 @@ Note that $1=\sum_{I\in p(1)}P(I)$, so this is a probability distribution.
 
 Recall that the Shannon entropy $H(P)$ of a probability distribution $P\colon X\to[0,1]$ is given by
 \[
-H(P)\coloneqq-\sum_{x\in X}P(x)\log P(x)
+H(P)\coloneqq-\sum_{x\in X}P(x)\log P(x).
 \]
 
-\begin{theorem}
-Let $p\neq0$ be a nonzero polynomial with $\card\dot{p}(1)<\infty$, and let $P$ be the empirical distribution defined by $p$. Then we have
+\begin{theorem}\label{thm.main}
+Let $p\neq0$ be a nonzero polynomial with $\card\dot{p}(1)<\infty$, and let $P$ be the empirical distribution defined by $p$. Then the following equation holds
 \[
 H(P)=L\hh(p)
 \]
@@ -743,6 +777,7 @@ With the fact $\Gamma(\dot{p}\yon)\cong\prod_{I\in p(1)}p[I]^{p[I]}$ from \cref{
 	\log\card\dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}
 \end{align*}
 \end{proof}
+
 
 \printbibliography 
 \end{document}
