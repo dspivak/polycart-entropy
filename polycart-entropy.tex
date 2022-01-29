@@ -2,7 +2,7 @@
 
 
 \settrims{0pt}{0pt} % page and stock same size
-\settypeblocksize{*}{35.1pc}{*} % {height}{width}{ratio}
+\settypeblocksize{*}{33.5pc}{*} % {height}{width}{ratio}
 \setlrmargins{*}{*}{1} % {spine}{edge}{ratio}
 \setulmarginsandblock{.98in}{.98in}{*} % height of typeblock computed
 \setheadfoot{\onelineskip}{2\onelineskip} % {headheight}{footskip}
@@ -439,7 +439,7 @@ which agrees with the calculation in \eqref{eqn.example_entropy}. In the above t
 
 The paper is fairly short, and the introduction was written so that people familiar with $\poly$ may not need to read further. For less familiar readers, we include two additional sections: a section giving the relevant background on $\poly$ and $\polycart$, and a section proving the main results.
 
-There have been other categorical approaches to entropy, most notably \cite{baez2011characterization}, \cite{baez2014bayesian}, and \cite{leinster2021entropy}. Our presentation here has almost nothing in common with those.
+There have been other categorical approaches to entropy, most notably \cite{baez2011characterization}, \cite{baez2014bayesian}, and \cite{leinster2021entropy}. Our presentation here has almost nothing in common with those; as mentioned above, it is closely aligned with \cite{spivak2021dirichlet}.
 
 \section*{Acknowledgments}
 This material is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-20-1-0348.
@@ -459,7 +459,7 @@ Given a set $S$, we denote the corresponding representable functor by
 \[\yon^S\coloneqq\smset(S,-)\colon\smset\to\smset,\]
 e.g. $\yon^S(X)\coloneqq X^S$. In particular $\yon=\yon^1$ is the identity and $\yon^0=1$ is constant singleton.
 
-A \emph{polynomial functor} is a functor $p\colon\smset\to\smset$ that is isomorphic to a sum of representables, i.e.\ for which there exists a set $T$, a set $p[t]\in\smset$ for each $t\in T$, and an isomorphism
+A \emph{polynomial functor} is a functor $p\colon\smset\to\smset$ that is isomorphic to a sum of representables, i.e.\ for which there exists a set $T$, a set $p[t]\in\smset$ for each $t\in T$, and an isomorphism of functors
 \[
 p\cong\sum_{t\in T}\yon^{p[t]}.
 \]
@@ -472,13 +472,13 @@ A \emph{morphism} $\varphi\colon p\to p'$ of polynomial functors is simply a nat
   p'(S')\ar[r, "p'(f)"']&p'(S')\ar[ul, phantom, very near end, "\lrcorner"]
 \end{tikzcd}
 \]
-is a pullback of sets. We denote the category of polynomial functors by $\poly$ and the wide subcategory of polynomials and cartesian maps by $\polycart$.\end{definition}
+is a pullback of sets. We denote the category of polynomial functors by $\poly$ and the wide subcategory of polynomials and cartesian maps by $\polycart\ss\poly$.\end{definition}
 
 For any polynomial $p=\sum_{t\in T}\yon^{p[t]}$, we have a canonical isomorphism $p(1)\cong T$; hence from now on we will denote $p$ by
 \begin{equation}\label{eqn.poly_notation}
 p=\sum_{I\in p(1)}\yon^{p[I]}
 \end{equation}
-so that the $p$-types are written with upper-case letters, e.g. $I\in p(1)$, and its terms are written with corresponding lower-case letters, e.g. $i\in p[I]$.
+so that each $p$-types is written with an upper-case letter, e.g. $I\in p(1)$, and its terms are written with corresponding lower-case letters, e.g. $i\in p[I]$.
 
 \begin{remark}\label{rem.positions_and_directions}
 Using the Yoneda lemma, the fact that a morphism in $\poly$ is just a natural transformation, and the fact that a polynomial is a coproduct of representables, we derive
@@ -499,7 +499,7 @@ where $J\coloneqq\varphi_1(I)$. That is, $\varphi_1$ is a function from $p$-type
 One can check that a map $\varphi\colon p\to q$ is cartesian iff the backwards-on-terms function $\varphi^\sharp_I$ is a bijection $p[I]\cong q[\varphi_1I]$ for each type $I\in p(1)$.
 \end{remark}
 
-\begin{example}[Types and global sections, $\Gamma$]\label{ex.pos_glob}
+\begin{example}[Types and global sections, $p(1)$ and $\Gamma(p)$]\label{ex.pos_glob}
 For any polynomial $p$, we will be particularly interested in two sorts of maps: $\yon\to p$ and $p\to\yon$. The former is easy: a map $\yon\to p$ is given on types by choosing a single type $I\in p(1)$ to be the image of the unique type $!\in\yon(1)$ and given backward on terms using the unique choice of function $p[I]\to 1=\yon[!]$. Thus we have $p(1)\cong\poly(\yon,p)$.
 
 More interesting are the maps $\gamma\colon p\to\yon$. This time $\gamma$ is trivial on types: each type $I\in p(1)$ is sent to the unique type $!\in\yon(1)$. However on terms, we need a map $\varphi^\sharp_I\colon 1\to p[I]$ for each $I$, meaning a choice of term $i\in I$ for each $I\in p(1)$. In other words, writing $\Gamma(p)\coloneqq\poly(p,\yon)$, we have
@@ -512,7 +512,7 @@ Note that $-(1)\colon\poly\to\smset$ and $\Gamma\colon\poly\to\smset\op$ are fun
 \begin{equation}\label{eqn.fundamental}
 \R\colon\poly\to\smset\times\smset\op
 \end{equation}
-given by $\R(p)\coloneqq (p(1),\Gamma(p))$. In fact, $\R$ is a left adjoint, but we do not need that for this paper.
+given by $\R(p)\coloneqq (p(1),\Gamma(p))$. In fact, $\R$ is a left adjoint, but we do not need that for this paper. In \cref{rem.geomean} we will explain that $\R(p)$ can be viewed as the \emph{rectangular aspect} of the polynomial $p$, hence the name $\R$.
 \end{example}
 
 %\begin{definition}[Polynomial functor]\label{def.poly}
@@ -588,7 +588,7 @@ A coalgebra for this comonad is a polynomial $p$ equipped with a map $\gamma\col
 The above is intriguing in that $\Gamma(p)$ is a major player in the story of this paper, but we currently know of no further connection between entropy and this comonad. 
 \end{remark}
 
-\section{Rig monoidal structure}
+\section{Rig monoidal structure on $\poly$}
 
 The category $\poly$ has coproducts $p+q$ and products $p\times q$ given by usual polynomial arithmetic. We will be more interested in the former:%
 \footnote{
@@ -619,7 +619,7 @@ p\otimes (q_1+q_2)\cong (p\otimes q_1)+(p\otimes q_2),
 \]
 thus making $(\poly,0,+,\yon,\otimes)$ a distributive monoidal category, and in particular a rig monoidal category.
 
-\begin{remark}[Leibniz and chain rules]
+\begin{remark}[Leibniz and chain rules]\label{rem.leibniz}
 Some readers may be interested in the Leibniz rule and chain rule, that
 \begin{align*}
 	\dot{(p\times q)}&\cong\dot{p}\times q+p\times\dot{q}\\
@@ -651,7 +651,9 @@ The following corollary is straightforward, since $\polycart$ inherits $+$ and $
 The functor $\D(p)\coloneqq\dot{p}\yon$ is a rig functor $\D\colon\polycart\to\poly$. 
 \end{corollary}
 
+\begin{remark}[Total polynomial]\label{rem.total}
 Note that for any $p$ we have $(\dot{p}\yon)(1)\cong\dot{p}(1)$. We think of $\dot{p}\yon$ as the \emph{total polynomial} of $p$; e.g.\ a section of the map $\dot{p}\yon\to p$ from \cref{rem.comonad} is the same as a section $\gamma\in\Gamma(p)$.
+\end{remark}
 
 
 \begin{example}\label{ex.global_D}
@@ -720,6 +722,17 @@ It is given as follows:
 \end{align*}
 \end{proof}
 
+\begin{remark}[Products on $\smset\times\smset\op$]
+In fact $\smset\times\smset\op$ has categorical products: the unit is $(1,0)$ and the product is
+\[(A_1,B_1)\times(A_2,B_2)\coloneqq(A_1A_2,B_1+B_2).\]
+All functors between categories with products have an op-lax structure, hence $\R\colon(\poly,1,\times)\to(\smset\times\smset\op,(1,0),\times)$ does too:
+ \[
+ \R(1)\cong(1,0)\qqand\R(p\times q)\to\R(p)\times\R(q).
+ \]
+ But $R$ is no better-behaved than that, and since $\dot{p}$ only satisfies a Leibniz rule with respect to product (see \cref{rem.leibniz})---i.e.\ since it does not actually \emph{preserve} products---we see no way to use the $\times$ structure on $\poly$ or $\smset\times\smset\op$ in this paper.
+\end{remark}
+
+
 We summarize the above section before we go on to the next. Namely, the functors $\D\colon\polycart\to\poly$ and $\R\colon\poly\to\smset\to\smset\op$ from \cref{cor.D,prop.W} compose to form a rig functor $\hh\coloneqq \R\circ \D$ given by
 \begin{equation}\label{eqn.entropy_data}
 \begin{aligned}
@@ -736,7 +749,7 @@ We define a partial function $L\colon\ob(\smset\times\smset\op)\to\rr$ by
 \begin{equation}\label{eqn.L}
 (A,B)\mapsto \log A-\frac{\log B}{A}.
 \end{equation}
-Equivalently, $L(A,B)=\log A-\log\sqrt[A]{B}$. When $A=0$ and $B=1$, we define this function to be $L(0,1)=0$; for all cases where $A=0$, or $B=0$, or either $A$ or $B$ is infinite, we leave $L(A,B)$ undefined. We will be only interested in this map when it is is composed with the categorical entropy $\mathcal{h}$ from \eqref{eqn.entropy_data}, and \cref{lemma.dontworry} says that we do not need to worry about the undefined cases.
+Equivalently, $L(A,B)=\log A-\log\sqrt[A]{B}$. When $A=0$ and $B=1$, we define this function to be $L(0,1)=0$; for all cases where $A=0$, or $B=0$, or either $A$ or $B$ is infinite, we leave $L(A,B)$ undefined. We will be only interested in this map when it is composed with the categorical entropy $\mathcal{h}$ from \eqref{eqn.entropy_data}, and \cref{lemma.dontworry} below says that we do not need to worry about the undefined cases.
 
 \begin{lemma}\label{lemma.dontworry}
 Let $p\in\polycart$ with categorical entropy $(A,B)\coloneqq\hh(p)$, and suppose that $\card\dot{p}(1)<\infty$. Then we have that
@@ -777,6 +790,8 @@ Recall that the Shannon entropy $H(P)$ of a probability distribution $P\colon X\
 H(P)\coloneqq-\sum_{x\in X}P(x)\log P(x).
 \]
 
+The following theorem could be summarized as follows: ``thinking of $p\in\polycart$ as a statistical sample, the entropy $H(P)$ of the corresponding probability distribution $P$ is equal to the log ratio of the rectangular aspect of $p$'s total polynomial''; see Remarks~\ref{rem.total},~\ref{rem.geomean},~and~\ref{rem.log_aspect_ratio}.
+
 \begin{theorem}\label{thm.main}
 Let $p\neq0$ be a nonzero polynomial with $\card\dot{p}(1)<\infty$, and let $P$ be the empirical distribution defined by $p$. Then the following equation holds
 \[
@@ -799,7 +814,7 @@ With the fact $\Gamma(\dot{p}\yon)\cong\prod_{I\in p(1)}p[I]^{p[I]}$ from \cref{
 \end{align*}
 \end{proof}
 
-\begin{example}
+\begin{example}[Entropy of a uniform distribution]
 It is well-known and easy to calculate that if $P$ is a uniform distribution on $A$ elements, then $H(p)=\log(A)$. There are many samples that correspond to $P$; they differ in their number of observations. The sample in which $AB$-many observations are taken---each outcome occurring $B$-many times---corresponds to the polynomial $A\yon^B$.
 
 Our formula for entropy needs to agree, and it does: $\hh(p)\cong(AB,B^{AB})$, and
