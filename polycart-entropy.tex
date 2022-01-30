@@ -2,7 +2,7 @@
 
 
 \settrims{0pt}{0pt} % page and stock same size
-\settypeblocksize{*}{33pc}{*} % {height}{width}{ratio}
+\settypeblocksize{*}{33.5pc}{*} % {height}{width}{ratio}
 \setlrmargins{*}{*}{1} % {spine}{edge}{ratio}
 \setulmarginsandblock{.98in}{.98in}{*} % height of typeblock computed
 \setheadfoot{\onelineskip}{2\onelineskip} % {headheight}{footskip}
@@ -362,7 +362,7 @@ replacement=\&]{}\ar[r,tick, "{#1}"]\&{}\end{tikzcd}}
 \begin{abstract}
 Past work shows that one can associate a notion of Shannon entropy to a Dirichlet polynomial, regarded as an empirical distribution. Indeed, entropy can be extracted from any $d\in\dir$ by a two-step process, where the first step is a rig homomorphism out of $\dir$, the \emph{set} of Dirichlet polynomials, with rig structure given by standard addition and multiplication. In this short note, we show that this rig homomorphism can be upgraded to a rig \emph{functor}, when we replace the set of Dirichlet polynomials by the \emph{category} of ordinary (Cartesian) polynomials.
 
-In the Cartesian case, the process has three steps. The first step is a rig functor $\polycart\to\poly$ sending a polynomial $p$ to $\dot{p}\yon$, where $\dot{p}$ is the derivative of $p$. The second is a rig functor $\poly\to\smset\times\smset\op$, sending a polynomial $q$ to the pair $(q(1),\Gamma(q))$, where $\Gamma(q)=\poly(q,\yon)$ can be interpreted as the global sections of $q$ viewed as a bundle, and $q(1)$ as its base. The last step, as for Dirichlet polynomials, is simply to extract the entropy as a real number from a pair of sets $(A,B)$; it is given by $\log A-\frac{\log B}{A}$. In summary, the entropy of $p$ is given by $H(p)=\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}$.
+In the Cartesian case, the process has three steps. The first step is a rig functor $\polycart\to\poly$ sending a polynomial $p$ to $\dot{p}\yon$, where $\dot{p}$ is the derivative of $p$. The second is a rig functor $\poly\to\smset\times\smset\op$, sending a polynomial $q$ to the pair $(q(1),\Gamma(q))$, where $\Gamma(q)=\poly(q,\yon)$ can be interpreted as the global sections of $q$ viewed as a bundle, and $q(1)$ as its base. To make this precise we define what appears to be a new distributive monoidal structure on $\smset\times\smset\op$, which can be understood geometrically in terms of rectangles. The last step, as for Dirichlet polynomials, is simply to extract the entropy as a real number from a pair of sets $(A,B)$; it is given by $\log A-\log \sqrt[A]{B}$ and can be thought of as the log aspect ratio of the rectangle.
 \end{abstract}
 
 \chapter{Introduction}
@@ -390,15 +390,15 @@ In practice, a probability distribution on a set of \emph{outcomes} arises from 
   \end{tikzpicture}
 \end{equation}
 
-This corresponds to the probability distribution $P=(\frac{1}{2},\frac{1}{8},\frac{1}{8},\frac{1}{8},\frac{1}{8})$. But the sample itself can be encoded in a polynomial, namely $p\coloneqq\yon^4+4\yon$. Note that $p(1)=5$ is the number of outcomes and that $\dot{p}(1)=8$ is the number of draws, where $\dot{p}=4\yon^3+4$ is the derivative of $p$. The map $\pi$ itself is somehow inherent in $p$: one of its summands has an exponent of $4$, whereas its other four summands each have an exponent of $1$. Yet one may wonder: is this polynomial encoding really meaningful, or is it just a bizarre packaging of the sample? Our goal in this paper is to show that it is meaningful, at least when it comes to considering the Shannon entropy $H(P)$. 
+This corresponds to the probability distribution $P=(\frac{1}{2},\frac{1}{8},\frac{1}{8},\frac{1}{8},\frac{1}{8})$. But the sample itself can be encoded in the form of a polynomial, namely $p\coloneqq\yon^4+4\yon$. Note that $p(1)=5$ is the number of outcomes and that $\dot{p}(1)=8$ is the number of draws, where $\dot{p}=4\yon^3+4$ is the derivative of $p$. The map $\pi$ itself is somehow inherent in $p$: one of its summands has an exponent of $4$, whereas its other four summands each have an exponent of $1$. Yet one may wonder: is this polynomial encoding really meaningful, or is it just a bizarre packaging of the sample? Our goal in this paper is to show that it is meaningful, at least when it comes to considering the Shannon entropy $H(P)$. 
 
-The Shannon entropy of a distribution \cite{shannon1948mathematical} is a measure of how much information is transmitted when outcomes are selected according to the distribution. For example, if one repeatedly chooses an element of the 8 draws above uniformly at random but only reports the outcome, then in \eqref{eqn.empirical} the first outcome will show up more four-times more often than any other. As we will explain, Shannon's information theory says that this distribution has entropy $H(P)=2$, i.e.\ it transmits the same amount of information as a uniform distribution on only $4$ outcomes does.
+The Shannon entropy of a distribution \cite{shannon1948mathematical} is a measure of how much information is transmitted when outcomes are selected according to the distribution. For example, if one repeatedly chooses an element of the 8 draws in diagram \eqref{eqn.empirical} uniformly at random but only reports the outcome, then the first outcome will show up more four-times more often than any other. As we will explain, Shannon's information theory says that this distribution has entropy $H(P)=2$, i.e.\ it transmits the same amount of information as if it were a uniform distribution on only $4$ outcomes.
 
 In this paper we will give a category-theoretic account of the Shannon entropy of the probability distribution corresponding to a sample encoded as a polynomial $p$, or more precisely a \emph{polynomial functor} $p\in\poly$. Polynomial functors are ubiquitous: they show up in type theory \cite{avigad2019data,awodey2018polynomial}, dynamical systems theory \cite{spivak2020poly,spivak2022poly}, database theory \cite{spivak2015relational,spivak2021functorial}, programming language theory \cite{bird1996algebra,abbott2003categories}, and higher category theory \cite{thanh2019sequent,shapiro2021familial}. 
 
 The category $\poly$ of polynomial functors in one variable has an enormous amount of structure. For example, it has at least eight distinct monoidal structures, of which two will be relevant to us. One is the coproduct: given two polynomials $p,q$, we may add them to form $p+q$. In terms of samples, this operation simply takes the disjoint union of two samples: both the sets of outcomes and the sets of draws. The other is the \emph{Dirichlet product}, denoted $\otimes$. We will give the precise formula for $p\otimes q$ in \cref{sec.rig}, but the idea is that it runs the two samples independently: an outcome in $p\otimes q$ is a pair consisting of an outcome from $p$ and an outcome from $q$, and a draw is also a pair consisting of a draw from $p$ and a draw from $q$.
 
-These two operations make $\poly$ a \emph{distributive monoidal category}, because $\otimes$ distributes over $+$. The goal of this paper is to show that most of the work in taking the Shannon entropy of a sample is fully category-theoretic. Indeed, we will factor it into three stages, the first two of which are completely categorical, and the last of which extracts a real number that will be the entropy. 
+These two operations make $\poly$ a \emph{distributive monoidal category}, because $\otimes$ distributes over $+$. The goal of this paper is to show that most of the process for taking the Shannon entropy of a sample is fully category-theoretic. Indeed, we will factor the process into three stages, the first two of which are completely categorical, and the last of which extracts a real number that will be the entropy. 
 
 The first stage is to define a rig functor $\T\colon\polycart\to\poly$, which sends a polynomial $p$ to $\T(p)\coloneqq\dot{p}\yon$, where $\dot{p}$ is the derivative of $p$. The second stage is to define a rig functor $\R\colon\poly\to\smset\times\smset\op$, which sends a polynomial $q$ to $\R(q)\coloneqq(q(1),\Gamma(q))$, where $\Gamma(p)=\poly(p,\yon)$ can be construed as the set of global sections of $p$, viewed as a bundle. 
 
@@ -406,15 +406,15 @@ The fact that both $\T$ and $\R$ are rig functors means that each preserves both
 \[
 	(A_1,B_1)\otimes(A_2,B_2)\coloneqq\left(A_1A_2\,,\,B_1^{A_2}B_2^{A_1}\right).
 \]
-This monoidal product $\otimes$ distributes over the coproduct
+This monoidal product $\otimes$ distributes over the coproduct, which is given by
 \[
 (A_1,B_1)+(A_2,B_2)\coloneqq\left(A_1+A_2\,,\,B_1\times B_2\right),
 \]
-making $\smset\times\smset\op$ a distributive monoidal category, and in particular a \emph{rig category}. We will explain these two functors in \cref{chap.main}. We denote their composite---the result of the first and second stages---by
+hence making $\smset\times\smset\op$ a distributive monoidal category, and in particular a \emph{rig category}. We will explain these two rig functors $\T$ and $\R$ in \cref{chap.main}. We denote their composite---the result of the first and second stages---by
 \[\hh\coloneqq(\R\circ\T)\colon\polycart\to\smset\times\smset\op.\]
 It contains the categorical aspect of the entropy in a given sample $p\in\polycart$.
 
-Before we discuss the third stage, we need a bit of intuition. Namely, we can think of an object $(A,B)\in\smset\times\smset\op$ as a rectangle that has length $A$ and width $\sqrt[A]{B}$. The coproduct of two rectangles is given by adding their lengths and taking the geometric mean of their widths. The $\otimes$-product of two rectangles is given by multiplying both their lengths and their widths. It is in these terms that we can understand the third and final stage, which is simply to take the log aspect ratio of a given rectangle:
+Before we discuss the third stage, we need a bit of intuition. Namely, we can think of an object $(A,B)\in\smset\times\smset\op$ as encoding a rectangle that has length $A$ and width $\sqrt[A]{B}$. The coproduct of two rectangles is given by adding their lengths and taking the geometric mean of their widths. The $\otimes$-product of two rectangles is given by multiplying both their lengths and their widths. It is in these terms that we can understand the third and final stage, which is simply to take the \emph{log aspect ratio} (the log of the quotient of length divided by width) of a given rectangle:
 \[L(A,B)=\log A-\log\sqrt[A]{B}.\]
 
 That is, we will prove that for any polynomial $p$ with an associated probability distribution $P$, the Shannon entropy $H(P)$ can be computed by first applying the rig-functorial operation to obtain $\hh(p)\in\smset\times\smset\op$, and then by extracting the log aspect ratio:
@@ -424,7 +424,7 @@ H(P)=L(\hh(p)).
 
 We will conclude by returning to our original example, after giving the full composite: the function that takes a polynomial $p$ and returns the entropy of the corresponding empirical distribution is given by
 \[
-  H(p)\coloneqq\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}
+  L(\hh(p))\coloneqq\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}
 \]
 Note that $\log\sqrt[A]{B}=\frac{\log B}{A}$.
 
@@ -436,17 +436,17 @@ So consider again the polynomial $p=\yon^4+4\yon$, depicted in \eqref{eqn.empiri
 ,\quad
 \Gamma(\dot{p}\yon)=4^4*1^4=2^8
 ,\qand 
-H(p)=\log 8-\frac{\log 2^8}{8}=2
+L(\hh(p))=\log 8-\frac{\log 2^8}{8}=2
 \]
-which agrees with our former calculation. 
+which agrees with our former calculation: its entropy is $H(P)=L(\hh(p))=2$. 
 
-The remainder of this note is divided into two sections: \cref{chap.background} gives background on polynomial functors, including the $+$ and $\otimes$ structures. \cref{chap.main} gives the main results: explaining the seemingly novel distributive monoidal structure on $\smset\times\smset\op$, providing a rig monoidal functor $\hh\colon\polycart\to\smset\times\smset\op$, showing how to extract the entropy via a partial function $L\colon\ob(\smset\times\smset\op)\to\rr$, and finally proving the main theorem: that $H(P)=L(\hh(p))$.
+The remainder of this note is divided into two sections: \cref{chap.background} gives background on polynomial functors, including the definition of $\polycart\ss\poly$ as well as the $+$ and $\otimes$ structures. \cref{chap.main} gives the main results: explaining the seemingly novel distributive monoidal structure on $\smset\times\smset\op$, providing a rig monoidal functor $\hh\colon\polycart\to\smset\times\smset\op$, showing how to extract the entropy via a partial function $L\colon\ob(\smset\times\smset\op)\to\rr$, and finally proving the main theorem: that $H(P)=L(\hh(p))$.
 
 There have been other categorical approaches to entropy, most notably \cite{baez2011characterization}, \cite{baez2014bayesian}, and \cite{leinster2021entropy}. Our presentation here has almost nothing in common with those. 
 
 However, this work is closely aligned with \cite{spivak2021dirichlet}. There, the authors---myself and Tim Hosgood---use Dirichlet polynomials rather than ordinary (Cartesian)%
 \footnote{Ren\'{e} Decartes at least invented the notation, e.g.\ $\yon^2+3\yon+2$, for polynomials; hence we refer to them as \emph{Cartesian polynomials} when we need to distinguish them from Dirichlet polynomials.}
-polynomials. At the time, we seemed to have a choice of whether to use Dirichlet or Cartesian polynomials, and the Dirichlet route seemed cleaner and more intuitive. However, whereas there we only obtained a rig homomorphism (function) $\dir\to\rect$ to a somewhat ad hoc rig we called $\rect$, here we have obtained a rig \emph{functor} $\polycart\to\smset\times\smset\op$. Thus it is a significant categorical upgrade.
+polynomials. At the time, we seemed to have a choice of whether to use Dirichlet or Cartesian polynomials, and the Dirichlet route seemed cleaner and more intuitive for talking about the bundles. However, we were missing a few key ideas at the time. Whereas there we only factored out from $H$ a rig homomorphism (a function) $\dir\to\rect$ to a somewhat ad hoc rig we called $\rect$, the presentation here factors out from $H$ a rig \emph{functor} $\polycart\to\smset\times\smset\op$. Thus it is a significant categorical upgrade.
 
 \section*{Acknowledgments}
 This material is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-20-1-0348.
@@ -599,7 +599,7 @@ The above is intriguing in that $\Gamma(p)$ is a major player in the story of th
 
 The category $\poly$ has coproducts $p+q$ and products $p\times q$ given by usual polynomial arithmetic. We will be more interested in the former:%
 \footnote{
-The only reason we introduce $\times$ for $\poly$ is that we will be writing $\dot{p}\yon$, which is shorthand for $\dot{p}\times\yon$, throughout the paper. We will not see other products of polynomials, though products of sets will come up quite often.
+The only reason we introduce $\times$ for $\poly$ is to explain that the polynomial product $\dot{p}\yon$ is in fact the categorical product $\dot{p}\yon\cong\dot{p}\times\yon$.
 }
 coproducts constitute a symmetric monoidal product with unit $0$. A type in $p+q$ is a type in $p$ or disjointly a type in $q$, and a term of that type is as specified in $p$ or $q$, respectively.
 
@@ -643,7 +643,7 @@ We divide this section into two parts. \cref{sec.CT} is the category theory part
 
 \section{Categorical entropy of a polynomial}\label{sec.CT}
 
-Below we will often denote products merely by juxtaposition, both for polynomials $p\yon\coloneqq p\times \yon$ and for sets $AB\coloneqq A\times B$. Recall the functor $p\mapsto\dot{p}\yon$ from \cref{prop.dotpy}.
+Below we will often denote products of sets by juxtaposition, $AB\coloneqq A\times B$. Recall the functor $p\mapsto\dot{p}\yon$ from \cref{prop.dotpy}.
 
 \begin{proposition}
 The functor $p\mapsto\dot{p}\yon$ is a rig functor $\polycart\to\polycart$. 
@@ -659,7 +659,7 @@ The functor $\T(p)\coloneqq\dot{p}\yon$ is a rig functor $\T\colon\polycart\to\p
 \end{corollary}
 
 \begin{remark}[Total polynomial]\label{rem.total}
-Note that for any $p$ we have $(\dot{p}\yon)(1)\cong\dot{p}(1)$. We think of $\dot{p}\yon$ as the \emph{total polynomial} of $p$; e.g.\ a section of the map $\dot{p}\yon\to p$ from \cref{rem.comonad} is the same as a section $\gamma\in\Gamma(p)$.
+Note that for any $p$ we have $(\dot{p}\yon)(1)\cong\dot{p}(1)$. We think of $\dot{p}\yon$ as the \emph{total polynomial} of $p$, akin to the total space of a bundle, where $p$ is playing the role of the base. To justify this intuition, note that $\dot{p}\yon$ comes with a ``projection'' map $\epsilon\colon\dot{p}\yon\to p$ and that a section $p\to \dot{p}\yon$ of $\epsilon$ can be identified with a section $\gamma\in\Gamma(p)$ of $p$ as a bundle; see \cref{rem.comonad,ex.pos_glob}.
 \end{remark}
 
 
@@ -699,15 +699,19 @@ We leave the remaining details to the interested reader.
 \end{proof}
 
 \begin{remark}[Formal roots and rectangular aspect]\label{rem.geomean}
-One can think of an object $(A,B)\in\smset\times\smset\op$ as formally representing the $A$th root of $B$, i.e.\ the number $\sqrt[A]{B}=B^{\frac{1}{A}}$, keeping track of the base $A$ as well. From this perspective, the sum from \eqref{eqn.sum_geomean} represents the geometric mean and the monoidal product from \eqref{eqn.prod_prod} represents the product:
+One can think of an object $(A,B)\in\smset\times\smset\op$ as formally representing the $A$th root of $B$, i.e.\ the number $\sqrt[A]{B}=B^{\frac{1}{A}}$, keeping track of the base $A$ as well. It is helpful to think of $(A,B)$ as a rectangle with length $A$ and width $\sqrt[A]{B}$. From this perspective, the sum from \eqref{eqn.sum_geomean} adds the lengths and takes the geometric mean of the widths, and the monoidal product from \eqref{eqn.prod_prod} takes the product of both lengths and widths:
+%\[
+%(B_1B_2)^\frac{1}{A_1+A_2}=\left(\left(B_1^\frac{1}{A_1}\right)^{A_1}\times \left(B_2^\frac{1}{A_2}\right)^{A_2}\right)^{\frac{1}{A_1+A_2}}
+%\qqand
+%(B_1^{A_2}B_2^{A_1})^\frac{1}{A_1A_2}=B_1^\frac{1}{A_1}B_2^\frac{1}{A_2}.
+%\]
 \[
-(B_1B_2)^\frac{1}{A_1+A_2}=\left(\left(B_1^\frac{1}{A_1}\right)^{A_1}\times \left(B_2^\frac{1}{A_2}\right)^{A_2}\right)^{\frac{1}{A_1+A_2}}
+(B_1B_2)^\frac{1}{A_1+A_2}=\left(\left(\sqrt[A_1]{B_1}\right)^{A_1}\times \left(\sqrt[A_2]{B_2}\right)^{A_2}\right)^{\frac{1}{A_1+A_2}}
 \qqand
-(B_1^{A_2}B_2^{A_1})^\frac{1}{A_1A_2}=B_1^\frac{1}{A_1}B_2^\frac{1}{A_2}.
+(B_1^{A_2}B_2^{A_1})^\frac{1}{A_1A_2}=\sqrt[A_1]{B_1}\sqrt[A_2]{B_2}.
 \]
-We can think of $(A,B)$ as representing a rectangle with length $A$ and width $\sqrt[A]{B}$.
 
-For any polynomial $p$, the functor $\R(p)\coloneqq(p(1),\Gamma(p))$ from \eqref{eqn.fundamental} is consonant with this interpretation. We may say that $\R(p)$ denotes the \emph{rectangular aspect} of $p$ in the sense that $p(1)$ represents the length and $\sqrt[p(1)]{\Gamma(p)}$, the geometric mean of the fiber cardinalities, represents the width.
+For any polynomial $p$, the functor $\R(p)\coloneqq(p(1),\Gamma(p))$ from \eqref{eqn.fundamental} is consonant with this interpretation. We may say that $\R(p)$ denotes the \emph{rectangular aspect} of $p$ in the sense that $p(1)$ represents the length and $\sqrt[p(1)]{\Gamma(p)}$, the geometric mean of the fiber cardinalities, represents the width. For example, the polynomial $p=\yon^4+4\yon$, depicted in Diagram~\eqref{eqn.empirical}, has length $p(1)=5$ and width $\sqrt[5]{4}\approx1.3$.
 \end{remark}
 
 \begin{proposition}\label{prop.W}
@@ -740,7 +744,7 @@ It is given as follows:
 %\end{remark}
 
 
-We summarize the above section before we go on to the next. Namely, the functors $\T\colon\polycart\to\poly$ and $\R\colon\poly\to\smset\to\smset\op$ from \cref{cor.D,prop.W} compose to form a rig functor $\hh\coloneqq \R\circ \T$ given by
+We summarize the above section before we go on to the final one. Namely, the functors $\T\colon\polycart\to\poly$ and $\R\colon\poly\to\smset\to\smset\op$ from \cref{cor.D,prop.W} compose to form a rig functor $\hh\coloneqq \R\circ \T$ given by
 \begin{equation}\label{eqn.entropy_data}
 \begin{aligned}
 	\polycart&\To{\mathcal{h}}\smset\times\smset\op\\
@@ -748,15 +752,15 @@ We summarize the above section before we go on to the next. Namely, the functors
 \end{aligned}
 \end{equation}
 
-We refer to $\hh(p)\in\smset\times\smset\op$ as \emph{the categorical entropy} of the polynomial $p$. These two sets have left behind any semblance of the probability distribution associated with $p$, but they contain everything one needs in order to compute $p$'s entropy---as we'll see in \cref{thm.main}---and they are rig-functorial in $p$. 
+We refer to $\hh(p)\in\smset\times\smset\op$ as \emph{the categorical entropy} of the polynomial $p$. This pair of sets leaves behind any semblance of the probability distribution associated with $p$, but it retains the data necessary to compute $p$'s entropy---as we'll see in \cref{thm.main}---and it is rig-functorial in $p$. 
 
 \section{Shannon entropy}\label{sec.entropy}
 
-We define a partial function $L\colon\ob(\smset\times\smset\op)\to\rr$ by
+Writing $\log$ to denote $\log_2$, we define a partial function $L\colon\ob(\smset\times\smset\op)\to\rr$ by
 \begin{equation}\label{eqn.L}
 (A,B)\mapsto \log A-\frac{\log B}{A}.
 \end{equation}
-Equivalently, $L(A,B)=\log A-\log\sqrt[A]{B}$. When $A=0$ and $B=1$, we define this function to be $L(0,1)=0$; for all cases where $A=0$, or $B=0$, or either $A$ or $B$ is infinite, we leave $L(A,B)$ undefined. We will be only interested in this map when it is composed with the categorical entropy $\mathcal{h}$ from \eqref{eqn.entropy_data}, and \cref{lemma.dontworry} below says that we do not need to worry about the undefined cases.
+Equivalently, $L(A,B)=\log A-\log\sqrt[A]{B}$. When $A=0$ and $B=1$, we define this function to be $L(0,1)\coloneqq 0$; for all cases where $A=0$, or $B=0$, or either $A$ or $B$ is infinite, we leave $L(A,B)$ undefined. We will be only interested in this map when it is composed with the categorical entropy $\mathcal{h}$ from \eqref{eqn.entropy_data}, and \cref{lemma.dontworry} below says that we do not need to worry about the undefined cases.
 
 \begin{lemma}\label{lemma.dontworry}
 Let $p\in\polycart$ with categorical entropy $(A,B)\coloneqq\hh(p)$, and suppose that $\card\dot{p}(1)<\infty$. Then we have that
@@ -777,7 +781,7 @@ By definition of $\hh$, we have that $A\coloneqq\dot{p}(1)$ and $B\coloneqq\Gamm
 \end{proof}
 
 \begin{remark}[Log aspect ratio]\label{rem.log_aspect_ratio}
-With the interpretation of an object $(A,B)\in\smset\times\smset\op$ as a rectangle with length $A$ and width $\sqrt[A]{B}$, as in \cref{rem.geomean}, we can think of $L(A,B)=\log A -\log\sqrt[A]{B}$ as its \emph{log aspect ratio}, a quantity that has come up in the study of vision \cites{talbot2011arc,dickinson2017separate}, though we're not claiming that this connection is meaningful.
+With the interpretation of an object $(A,B)\in\smset\times\smset\op$ as a rectangle with length $A$ and width $\sqrt[A]{B}$, as in \cref{rem.geomean}, we can think of $L(A,B)=\log A -\log\sqrt[A]{B}$ as its \emph{log aspect ratio}, the log of its length divided by its width. This is a quantity that has come up in the study of vision \cites{talbot2011arc,dickinson2017separate}, though we're making no claim about whether this connection is meaningful.
 \end{remark}
 
 \begin{definition}[Empirical distribution]
@@ -785,13 +789,13 @@ Let $p\neq 0$ be a nonzero polynomial and suppose that the cardinality of $\dot{
 \[
  P(I)\coloneqq\frac{\card p[I]}{\card\dot{p}(1)}
 \]
-Note that $1=\sum_{I\in p(1)}P(I)$, so this is a probability distribution.
+Note that $1=\sum_{I\in p(1)}P(I)$, so $P$ is indeed a probability distribution.
 \end{definition}
 
-\begin{example}[Outcomes, samples, and draws]
-Consider an experiment consisting of a coin; it has two outcomes, heads and tails. In this situation a sample consists of a set of draws, i.e.\ coin-flips. The polynomial $p$ corresponds to the sample: the set of outcomes is $p(1)$---in this case $p(1)=\{\text{heads, tails}\}$ has two elements---and for each outcome $i\in p(1)$ the set of draws with outcome $i$ is $p[i]$. The set $\dot{p}(1)$ is the total number of observations.
-\end{example}
-
+%\begin{example}[Outcomes, samples, and draws]
+%Consider an experiment consisting of a coin; it has two outcomes, heads and tails. In this situation a sample consists of a set of draws, i.e.\ coin-flips. The polynomial $p$ corresponds to the sample: the set of outcomes is $p(1)$---in this case $p(1)=\{\text{heads, tails}\}$ has two elements---and for each outcome $i\in p(1)$ the set of draws with outcome $i$ is $p[i]$. The set $\dot{p}(1)$ is the total number of observations.
+%\end{example}
+%
 Recall that the Shannon entropy $H(P)$ of a probability distribution $P\colon X\to[0,1]$ is given by
 \[
 H(P)\coloneqq-\sum_{x\in X}P(x)\log P(x).
@@ -822,9 +826,9 @@ With the fact $\Gamma(\dot{p}\yon)\cong\prod_{I\in p(1)}p[I]^{p[I]}$ from \cref{
 \end{proof}
 
 \begin{example}[Entropy of a uniform distribution]
-It is well-known and easy to calculate that if $P$ is a uniform distribution on $A$ elements, then $H(p)=\log(A)$. There are many samples that correspond to $P$; they differ in their number of observations. The sample in which $AB$-many observations are taken---each outcome occurring $B$-many times---corresponds to the polynomial $A\yon^B$.
+It is well-known and easy to calculate that if $P$ is a uniform distribution on $A$ elements, then $H(P)=\log(A)$. There are many samples that correspond to $P$; what differs are their sample sizes. The sample in which $AB$-many observations are taken---each outcome occurring $B$-many times---corresponds to the polynomial $A\yon^B$. 
 
-Our formula for entropy needs to agree, and it does: $\hh(p)\cong(AB,B^{AB})$, and
+Our formula for entropy needs to agree, and it does. The rectangular aspect of the total polynomial is $\hh(p)\cong(AB,B^{AB})$: length $AB$ and width $B=\sqrt[AB]{B^{AB}}$, so its log aspect ratio is
 \[
 L(\hh(p))=\log(AB)-\frac{\log(B^{AB})}{AB}=\log A.
 \qedhere
