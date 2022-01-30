@@ -2,7 +2,7 @@
 
 
 \settrims{0pt}{0pt} % page and stock same size
-\settypeblocksize{*}{33.5pc}{*} % {height}{width}{ratio}
+\settypeblocksize{*}{33pc}{*} % {height}{width}{ratio}
 \setlrmargins{*}{*}{1} % {spine}{edge}{ratio}
 \setulmarginsandblock{.98in}{.98in}{*} % height of typeblock computed
 \setheadfoot{\onelineskip}{2\onelineskip} % {headheight}{footskip}
@@ -307,7 +307,7 @@ replacement=\&]{}\ar[r,tick, "{#1}"]\&{}\end{tikzcd}}
 \newcommand{\U}{\tn{\textsf{U}}}
 \newcommand{\tri}{\mathbin{\triangleleft}}
 \newcommand{\R}{R}
-\newcommand{\D}{T}
+\newcommand{\T}{T}
 
 % lenses
 \newcommand{\biglens}[2]{
@@ -351,7 +351,7 @@ replacement=\&]{}\ar[r,tick, "{#1}"]\&{}\end{tikzcd}}
 %--------------- Document ---------------%
 \begin{document}
 
-\title{Polynomial functors and entropy}
+\title{Polynomial functors and Shannon entropy}
 
 \author{David I. Spivak}
 
@@ -367,7 +367,8 @@ In the Cartesian case, the process has three steps. The first step is a rig func
 
 \chapter{Introduction}
 
-In \cite{spivak2021dirichlet} the authors---myself and Tim Hosgood---present a process for extracting the Shannon entropy from an empirical distribution, e.g.\ the following: 
+In practice, a probability distribution on a set of \emph{outcomes} arises from considering finite samples. A sample consists of a set of observations, or \emph{draws}, each corresponding to one of the outcomes. For example, the following is a sample with five (5) outcomes and eight (8) draws:
+
 \begin{equation}\label{eqn.empirical}
   \begin{tikzpicture}[scale=0.5, baseline=(pi)]
     \node at (-2,2.5) {draws};%$\dot{p}(1)\cong8\cong$};
@@ -388,44 +389,40 @@ In \cite{spivak2021dirichlet} the authors---myself and Tim Hosgood---present a p
     \end{scope}
   \end{tikzpicture}
 \end{equation}
-The picture in \eqref{eqn.empirical} represents a statistical sample on a set of five (5) possible \emph{outcomes} and eight (8) empirical observations or \emph{draws}: four of the draws were from the first outcome, and 
-the rest were evenly distributed among the remaining four outcomes. This picture corresponds to a Dirichlet polynomial $d(\yon)\coloneqq 1\cdot 4^\yon+4\cdot 1^\yon$ in the sense that $d(1)\cong 8$ and $d(0)\cong 4$. Moreover, $d$ can be regarded as a functor $d\colon\smset\op\to\smset$ and the function $\pi$ is $d$ applied to the unique function $0\to 1$. We showed that the entropy of any finite empirical distribution can be extracted after sending the corresponding Dirichlet polynomial $d$ through a certain rig homomorphism $\dir\to\rect$, where $\dir$ is the rig (in $\smset$) of Dirichlet polynomials under $+$ and $\times$, and $\rect$ is a rig that was constructed (ad hoc) for this purpose.%
-\footnote{For example, addition in $\rect$ is given by sums and weighted geometric means:
-\[(A_1,W_1)+(A_2,W_2)=(A_1+A_2,(W_1^{A_1}W_2^{A_2})^{\frac{1}{A_1+A_2}}).\]
-An analogue of this formula will arise from the $+$-structure on $\smset\times\smset\op$; see \cref{rem.geomean}.}
-In the case of \eqref{eqn.empirical}, one can calculate the entropy as 
-\begin{equation}\label{eqn.example_entropy}
-H(p)=H\left(\frac{1}{2},\frac{1}{8},\frac{1}{8},\frac{1}{8},\frac{1}{8}\right)=2.
-\end{equation}
 
+This corresponds to the probability distribution $P=(\frac{1}{2},\frac{1}{8},\frac{1}{8},\frac{1}{8},\frac{1}{8})$. But the sample itself can be encoded in a polynomial, namely $p\coloneqq\yon^4+4\yon$. Note that $p(1)=5$ is the number of outcomes and that $\dot{p}(1)=8$ is the number of draws, where $\dot{p}=4\yon^3+4$ is the derivative of $p$. The map $\pi$ itself is somehow inherent in $p$: one of its summands has an exponent of $4$, whereas its other four summands each have an exponent of $1$. Yet one may wonder: is this polynomial encoding really meaningful, or is it just an ad hoc packaging of the sample. Our goal in this paper is to show that it is meaningful, at least when it comes to considering the Shannon entropy $H(P)$. 
 
-There is a duality \cite[Section 4]{spivak2020dirichlet} between Dirichlet polynomials and ordinary (Cartesian) polynomials.%
-\footnote{Ren\`{e} Decartes at least invented the notation, e.g.\ $\yon^2+3\yon+2$, for polynomials; hence we refer to them as \emph{Cartesian polynomials} when we need to distinguish them from Dirichlet polynomials.}
- For example the Dirichlet polynomial $1\cdot 4^\yon+4\cdot 1^\yon$ corresponding to the sample in \eqref{eqn.empirical} is sent to the polynomial $1\cdot\yon^4+4\cdot\yon^1$, which we write simply as $p\coloneqq\yon^4+4\yon$. As for Dirichlet, the Cartesian polynomial $p$ encodes the base and total set of the bundle: $5\cong p(1)$ and $8\cong\dot{p}(1)$, where $\dot{p}=4\yon^3+4$ is the derivative of $p$ with respect to $\yon$. But now the map $\pi$ is inherent in $p$ and cannot simply be extracted as it was above for Dirichlet polynomials. Moreover, the map $p\mapsto\dot{p}$ is \emph{not} functorial in $p\in\poly$, nor is there generally any comparison map between $p$ and $\dot{p}$. Thus while the story Hosgood and I told about Shannon entropy for Dirichlet polynomials was also technically viable for Cartesian polynomials, we decided that the story was cleaner and seemed to have better formal properties in the Dirichlet setting.
+The Shannon entropy of a distribution \cite{shannon1948mathematical} is a measure of how much information is transmitted when outcomes are selected according to the distribution. For example, if one repeatedly chooses an element of the 8 draws above uniformly at random from but only reports the outcome, then in \eqref{eqn.empirical} the first outcome will show up more four-times more often than any other. As we will explain, Shannon's information theory says that this distribution has entropy $H(P)=2$, the equivalent of a uniform distribution on $4$ outcomes.
 
-However, there is a fix that we were not aware of, and this fix makes the Cartesian story significantly \emph{more categorical} than the Dirichlet story. Indeed, the \emph{function} $\dir\to\rect$ is replaced by a \emph{functor} $\hh\colon\polycart\to\smset\times\smset\op$, described in \cref{sec.CT}. Both the function and the functor are rig maps, i.e.\ they both preserve a notion of addition and multiplication, where the notion of multiplication is given by a what appears to be a novel monoidal product on  $\smset\times\smset\op$, namely
+In this paper we will give a category-theoretic account of the Shannon entropy of the probability distribution corresponding to a sample, encoded as a polynomial, or more precisely a \emph{polynomial functor}. Polynomial functors are ubiquitous: they show up in type theory \cite{avigad2019data,awodey2018polynomial}, dynamical systems theory \cite{spivak2020poly,spivak2022poly}, database theory \cite{spivak2015relational,spivak2021functorial}, programming language theory \cite{bird1996algebra,abbott2003categories}, and higher category theory \cite{thanh2019sequent,shapiro2021familial}. 
+
+The category $\poly$ of polynomial functors in one variable has an enormous amount of structure. For example, it has at least eight monoidal structures, of which two will be relevant to us. One is the coproduct: given two polynomials $p,q$, we may add them to form $p+q$. In terms of samples, this operation simply takes the disjoint union of two samples: both the sets of outcomes and the sets of draws. The other is the \emph{Dirichlet product}, denoted $\otimes$. We will give the precise formula for $p\otimes q$ in the main text, but the idea is that it runs the two samples independently: an outcome in $p\otimes q$ is a pair consisting of an outcome from $p$ and an outcome from $q$, and a draw is also a pair consisting of a draw from $p$ and a draw from $q$.
+
+These two operations make $\poly$ a \emph{distributive monoidal category}, because $\otimes$ distributes over $+$. The goal of this paper is to show that most of the work of taking the Shannon entropy of a sample occurs in a fully category-theoretic way. Indeed, we will factor it into three stages, the first two of which are completely categorical, and the last of which extracts a real number that will be the entropy. 
+
+The first stage is to define a rig functor $\T\colon\polycart\to\poly$, which sends a polynomial $p$ to $\T(p)\coloneqq\dot{p}\yon$, where $\dot{p}$ is the derivative of $p$. The second stage is to define a rig functor $\R\colon\poly\to\smset\times\smset\op$, which sends a polynomial $q$ to $\R(q)\coloneqq(q(1),\Gamma(q))$. The fact that both $\T$ and $\R$ are rig functors means that each preserves both the coproduct and the $\otimes$-product, a surprising amount of structure. But to say this, we need to define what appears to be a novel symmetric monoidal product $\otimes$ on $\smset\times\smset\op$. It is given by
 \[
 	(A_1,B_1)\otimes(A_2,B_2)\coloneqq\left(A_1A_2\,,\,B_1^{A_2}B_2^{A_1}\right).
 \]
-This monoidal product $\otimes$ distributes over the coproduct, making $\smset\times\smset\op$ a distributive monoidal category, and in particular a \emph{rig category}.
+This monoidal product $\otimes$ distributes over the coproduct, making $\smset\times\smset\op$ a distributive monoidal category, and in particular a \emph{rig category}. We will explain these two functors and all the notation involved when we get to \cref{chap.background,chap.main}. We denote their composite---the result of the first and second stages---by
+\[\hh\coloneqq(\R\circ\T)\colon\polycart\to\smset\times\smset\op.\]
+It contains the categorical aspect of entropy, as it applies to polynomial functors.
 
-There are two pieces left to describe: the functor $\polycart\To{\hh}\smset\times\smset\op$ and the partial function $\ob(\smset\times\smset\op)\To{L}\rr$ that extracts the entropy. The latter is roughly the following formula, which is defined precisely in \cref{sec.entropy}:
+We can think of an object $(A,B)\in\smset\times\smset\op$ as a rectangle: $A$ is its length and $\sqrt[A]{B}$ is its width. The coproduct of two rectangles is given by adding their lengths and taking the geometric mean of their widths. The $\otimes$-product of two rectangles is given by multiplying both their lengths and their widths. It is in these terms that we can understand the third and final stage, which is simply to take the log aspect ratio of a given rectangle:
+\[L(A,B)=\log A-\log\sqrt[A]{B}.\]
+
+That is, we will prove that for any polynomial $p$ with an associated probability distribution $P$, the Shannon entropy $H(P)$ can be computed by first applying the rig-functorial operation to obtain $\hh(p)\in\smset\times\smset\op$, and then by extracting the log aspect ratio:
 \[
-L(A,B)\coloneqq\log A - \log \sqrt[A]{B}.
+H(P)=L(\hh(p)).
 \]
-In \cref{rem.log_aspect_ratio} we will give some intuition for this function in the context of polynomials, but for now we can think of $\log A$ as the amount of information possible in $A$ and $\log\sqrt[A]{B}=\frac{\log B}{A}$ as the amount of information lost to inefficiencies in the encoding.
 
-The majority of our attention in this paper is focused on the rig functor $\hh\colon\polycart\to\smset\times\smset\op$, which can be factored into two parts:
-\[
-\polycart\To{p\mapsto\dot{p}\yon}\poly\To{q\mapsto\big(q(1),\Gamma(q)\big)}\smset\times\smset\op,
-\]
-where $\Gamma(q)\coloneqq\poly(q,\yon)$. We will explain these two functors and all the notation involved when we get to \cref{chap.background,chap.main}. We are primarily interested in the fact that each of the above functors preserves the rig structure (i.e.\ each is strong monoidal with respect to $+$ and $\otimes$) and together define a formal root $\hh(p)\in\smset\times\smset\op$ for any $p\in\polycart$.
-
-We conclude our summary by giving the full composite: the function that takes a polynomial $p$ and returns the entropy of the corresponding empirical distribution is given by
+We will conclude by returning to our original example, after giving the full composite: the function that takes a polynomial $p$ and returns the entropy of the corresponding empirical distribution is given by
 \[
   H(p)\coloneqq\log \dot{p}(1)-\frac{\log\Gamma(\dot{p}\yon)}{\dot{p}(1)}
 \]
-For example, consider the polynomial $p=\yon^4+4\yon$, depicted in \eqref{eqn.empirical}. Then we calculate
+Note that $\log\sqrt[A]{B}=\frac{\log B}{A}$.
+
+So consider again the polynomial $p=\yon^4+4\yon$, depicted in \eqref{eqn.empirical}. Then we calculate
 \[
 \dot{p}\yon=4\yon^4+4\yon
 ,\quad
@@ -435,11 +432,13 @@ For example, consider the polynomial $p=\yon^4+4\yon$, depicted in \eqref{eqn.em
 ,\qand 
 H(p)=\log 8-\frac{\log 2^8}{8}=2
 \]
-which agrees with the calculation in \eqref{eqn.example_entropy}. In the above terms, there are $\log\dot{p}(1)=3$ bits of information possible in a sample size of $8$, but $\log\sqrt[8]{2^8}=1$ bit lost to inefficiencies in the encoding given by \eqref{eqn.empirical}.
+which agrees with our former calculation. 
 
-The paper is fairly short, and the introduction was written so that people familiar with $\poly$ may not need to read further. For less familiar readers, we include two additional sections: a section giving the relevant background on $\poly$ and $\polycart$, and a section proving the main results.
+The remainder of this note is divided into two sections: \cref{chap.background} gives background on polynomial functors, including the $+$ and $\otimes$ structures. \cref{chap.main} gives the main results: explaining the seemingly novel distributive monoidal structure on $\smset\times\smset\op$, providing a rig monoidal functor $\polycart\to\smset\times\smset\op$, showing how to extract the entropy via a partial function $L\colon\ob(\smset\times\smset\op)\to\rr$, and finally proving the main theorem: that $H(P)=L(\hh(p))$.
 
-There have been other categorical approaches to entropy, most notably \cite{baez2011characterization}, \cite{baez2014bayesian}, and \cite{leinster2021entropy}. Our presentation here has almost nothing in common with those; as mentioned above, it is closely aligned with \cite{spivak2021dirichlet}.
+There have been other categorical approaches to entropy, most notably \cite{baez2011characterization}, \cite{baez2014bayesian}, and \cite{leinster2021entropy}. Our presentation here has almost nothing in common with those. 
+
+However, this work is closely aligned with \cite{spivak2021dirichlet}. There, the authors---myself and Tim Hosgood---use Dirichlet polynomials rather than ordinary (Cartesian) polynomials. At the time, we seemed to have a choice of whether to use Dirichlet or Cartesian polynomials, and the Dirichlet route seemed cleaner. However, whereas there we only obtained a rig homomorphism (function) $\dir\to\rect$ to a somewhat ad hoc rig we called $\rect$, here we have obtained a rig \emph{functor} $\polycart\to\smset\times\smset\op$. Thus it is a significant categorical upgrade.
 
 \section*{Acknowledgments}
 This material is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-20-1-0348.
@@ -648,7 +647,7 @@ Clearly $\dot{0}=0$ and $\dot{(p+q)}\cong\dot{p}+\dot{q}$, and by multiplying bo
 The following corollary is straightforward, since $\polycart$ inherits $+$ and $\otimes$ from the forgetful functor $\polycart\to\poly$.
 
 \begin{corollary}\label{cor.D}
-The functor $\D(p)\coloneqq\dot{p}\yon$ is a rig functor $\D\colon\polycart\to\poly$. 
+The functor $\T(p)\coloneqq\dot{p}\yon$ is a rig functor $\T\colon\polycart\to\poly$. 
 \end{corollary}
 
 \begin{remark}[Total polynomial]\label{rem.total}
@@ -733,7 +732,7 @@ It is given as follows:
 %\end{remark}
 
 
-We summarize the above section before we go on to the next. Namely, the functors $\D\colon\polycart\to\poly$ and $\R\colon\poly\to\smset\to\smset\op$ from \cref{cor.D,prop.W} compose to form a rig functor $\hh\coloneqq \R\circ \D$ given by
+We summarize the above section before we go on to the next. Namely, the functors $\T\colon\polycart\to\poly$ and $\R\colon\poly\to\smset\to\smset\op$ from \cref{cor.D,prop.W} compose to form a rig functor $\hh\coloneqq \R\circ \T$ given by
 \begin{equation}\label{eqn.entropy_data}
 \begin{aligned}
 	\polycart&\To{\mathcal{h}}\smset\times\smset\op\\
