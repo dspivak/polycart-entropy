@@ -448,6 +448,8 @@ However, this work is closely aligned with \cite{spivak2021dirichlet}. There, th
 polynomials. At the time, we seemed to have a choice of whether to use Dirichlet or Cartesian polynomials, and the Dirichlet route seemed cleaner and more intuitive for talking about the bundles. However, we were missing a few key ideas at the time. Whereas there we only factored out from $H$ a rig homomorphism (a function) $\dir\to\rect$ to a somewhat ad hoc rig we called $\rect$, the presentation here factors out from $H$ a rig \emph{functor} $\polycart\to\smset\times\smset\op$. Thus it is a significant categorical upgrade.
 
 \section*{Acknowledgments}
+Thanks to Valeria de Paiva for interesting conversations.
+
 This material is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-20-1-0348.
 
 \chapter{Background on polynomial functors}\label{chap.background}
@@ -711,6 +713,14 @@ One can think of an object $(A,B)\in\smset\times\smset\op$ as formally represent
 \]
 
 For any polynomial $p$, the functor $\R(p)\coloneqq(p(1),\Gamma(p))$ from \eqref{eqn.fundamental} is consonant with this interpretation. We may say that $\R(p)$ denotes the \emph{rectangular aspect} of $p$ in the sense that $p(1)$ represents the length and $\sqrt[p(1)]{\Gamma(p)}$, the geometric mean of the fiber cardinalities, represents the width. For example, the polynomial $p=\yon^4+4\yon$, depicted in Diagram~\eqref{eqn.empirical}, has length $p(1)=5$ and width $\sqrt[5]{4}\approx1.3$.
+\end{remark}
+
+\begin{remark}
+The $\otimes$ operation \eqref{eqn.prod_prod} on $\smset\times\smset\op$ in fact has a closure
+\[
+[(A_1,B_1),(A_2,B_2)]\coloneqq\left(A_2^{A_1}B_1^{B_2}\,,\,A_1B_2\right).
+\]
+We will not need this, but it is interesting.
 \end{remark}
 
 \begin{proposition}\label{prop.W}
