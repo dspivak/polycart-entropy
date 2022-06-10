@@ -391,7 +391,7 @@ In practice, a probability distribution on a set of \emph{outcomes} arises from 
 
 This corresponds to the probability distribution $P=(\frac{1}{2},\frac{1}{8},\frac{1}{8},\frac{1}{8},\frac{1}{8})$. But the sample itself can be encoded in the form of a polynomial, namely $p\coloneqq\yon^4+4\yon$. Note that $p(1)=5$ is the number of outcomes and that $\dot{p}(1)=8$ is the number of draws, where $\dot{p}=4\yon^3+4$ is the derivative of $p$. The map $\pi$ itself is somehow inherent in $p$: one of its summands has an exponent of $4$, whereas its other four summands each have an exponent of $1$. Yet one may wonder: is this polynomial encoding really meaningful, or is it just a bizarre packaging of the sample? Our goal in this paper is to show that it is meaningful, at least when it comes to considering the Shannon entropy $H(P)$. 
 
-The Shannon entropy of a distribution \cite{shannon1948mathematical} is a measure of how much information is transmitted when outcomes are selected according to the distribution. For example, if one repeatedly chooses an element of the 8 draws in diagram \eqref{eqn.empirical} uniformly at random but only reports the outcome, then the first outcome will show up more four-times more often than any other. As we will explain, Shannon's information theory says that this distribution has entropy $H(P)=2$, i.e.\ it transmits the same amount of information as if it were a uniform distribution on only $4$ outcomes.
+The Shannon entropy of a distribution \cite{shannon1948mathematical} is a measure of how much information is transmitted when outcomes are selected according to the distribution. For example, if one repeatedly chooses an element of the 8 draws in diagram \eqref{eqn.empirical} uniformly at random but only reports the outcome, then the first outcome will show up four-times more often than any other. As we will explain, Shannon's information theory says that this distribution has entropy $H(P)=2$, i.e.\ it transmits the same amount of information as if it were a uniform distribution on only $4$ outcomes.
 
 In this paper we will give a category-theoretic account of the Shannon entropy of the probability distribution corresponding to a sample encoded as a polynomial $p$, or more precisely a \emph{polynomial functor} $p\in\poly$. Polynomial functors are ubiquitous: they show up in type theory \cite{avigad2019data,awodey2018polynomial}, dynamical systems theory \cite{spivak2020poly,spivak2022poly}, database theory \cite{spivak2015relational,spivak2021functorial}, programming language theory \cite{bird1996algebra,abbott2003categories}, and higher category theory \cite{thanh2019sequent,shapiro2021familial}. 
 
@@ -441,14 +441,14 @@ which agrees with our former calculation: its entropy is $H(P)=L(\hh(p))=2$.
 
 The remainder of this note is divided into two sections: \cref{chap.background} gives background on polynomial functors, including the definition of $\polycart\ss\poly$ as well as the $+$ and $\otimes$ structures. \cref{chap.main} gives the main results: explaining the seemingly novel distributive monoidal structure on $\smset\times\smset\op$, providing a rig monoidal functor $\hh\colon\polycart\to\smset\times\smset\op$, showing how to extract the entropy via a partial function $L\colon\ob(\smset\times\smset\op)\to\rr$, and finally proving the main theorem: that $H(P)=L(\hh(p))$.
 
-There have been other categorical approaches to entropy, most notably \cite{baez2011characterization}, \cite{baez2014bayesian}, and \cite{leinster2021entropy}. Our presentation here has almost nothing in common with those. 
+There have been other categorical approaches to entropy, most notably \cite{baez2011characterization}, \cite{baez2014bayesian}, \cite{leinster2021entropy}, and \cite{parzygnat2022functorial}. Our presentation here has almost nothing in common with those. 
 
 However, this work is closely aligned with \cite{spivak2021dirichlet}. There, the authors---myself and Tim Hosgood---use Dirichlet polynomials rather than ordinary (Cartesian)%
 \footnote{Ren\'{e} Decartes at least invented the notation, e.g.\ $\yon^2+3\yon+2$, for polynomials; hence we refer to them as \emph{Cartesian polynomials} when we need to distinguish them from Dirichlet polynomials.}
 polynomials. At the time, we seemed to have a choice of whether to use Dirichlet or Cartesian polynomials, and the Dirichlet route seemed cleaner and more intuitive for talking about the bundles. However, we were missing a few key ideas at the time. Whereas there we only factored out from $H$ a rig homomorphism (a function) $\dir\to\rect$ to a somewhat ad hoc rig we called $\rect$, the presentation here factors out from $H$ a rig \emph{functor} $\polycart\to\smset\times\smset\op$. Thus it is a significant categorical upgrade.
 
 \section*{Acknowledgments}
-Thanks to Valeria de Paiva for interesting conversations.
+Thanks to Valeria de Paiva for interesting conversations, and thanks to the referees of ACT2022 for suggestions, e.g.\ leading to \cref{rem.poly_prod_monoidal}.
 
 This material is based upon work supported by the Air Force Office of Scientific Research under award number FA9550-20-1-0348.
 
@@ -510,7 +510,7 @@ One can check that a map $\varphi\colon p\to q$ is cartesian iff the backwards-o
 \begin{example}[Types and global sections, $p(1)$ and $\Gamma(p)$]\label{ex.pos_glob}
 For any polynomial $p$, we will be particularly interested in two sorts of maps: $\yon\to p$ and $p\to\yon$. The former is easy: a map $\yon\to p$ is given on types by choosing a single type $I\in p(1)$ to be the image of the unique type $!\in\yon(1)$ and given backward on terms using the unique choice of function $p[I]\to 1=\yon[!]$. Thus we have $p(1)\cong\poly(\yon,p)$.
 
-More interesting are the maps $\gamma\colon p\to\yon$. This time $\gamma$ is trivial on types: each type $I\in p(1)$ is sent to the unique type $!\in\yon(1)$. However on terms, we need a map $\varphi^\sharp_I\colon 1\to p[I]$ for each $I$, meaning a choice of term $i\in I$ for each $I\in p(1)$. In other words, writing $\Gamma(p)\coloneqq\poly(p,\yon)$, we have
+More interesting are the maps $\gamma\colon p\to\yon$. This time $\gamma$ is trivial on types: each type $I\in p(1)$ is sent to the unique type $!\in\yon(1)$. However on terms, we need a map $\varphi^\sharp_I\colon 1\to p[I]$ for each $I$, meaning a choice of term $i\in p[I]$ for each $I\in p(1)$. In other words, writing $\Gamma(p)\coloneqq\poly(p,\yon)$, we have
 \begin{equation}\label{eqn.global}
 \Gamma(p)\cong\prod_{I\in p(1)}p[I].
 \end{equation}
@@ -576,6 +576,8 @@ where $p[I]-\{i\}$ denotes the set-difference. Note that $\dot{p}(1)\cong\sum_{I
 \]
 Just as in \cref{rem.positions_and_directions}, one provides a forward map on types $\varphi_1\colon p(1)\to q(1)$, at which point one takes the pullback of that map with $\dot{q}(1)\to q(1)$, and then one provides a backward map $\varphi^\sharp\colon p(1)\times_{q(1)}\dot{q}(1)\to \dot{p}(1)$ on directions.
 Again, $\varphi$ is cartesian iff $\varphi^\sharp$ is a bijection.
+
+We write $pq=p\times q$ for the usual product of two polynomials, e.g.\ $\dot{p}\yon=\dot{p}\times\yon$.
 
 \begin{proposition}\label{prop.dotpy}
 The assignment $p\mapsto\dot{p}\yon$ is a functor $\polycart\to\polycart$.
@@ -753,7 +755,7 @@ It is given as follows:
 %\end{remark}
 
 
-We summarize the above section before we go on to the final one. Namely, the functors $\T\colon\polycart\to\poly$ and $\R\colon\poly\to\smset\to\smset\op$ from \cref{cor.D,prop.W} compose to form a rig functor $\hh\coloneqq \R\circ \T$ given by
+We summarize the above section before we go on to the final one. Namely, the functors $\T\colon\polycart\to\poly$ and $\R\colon\poly\to\smset\times\smset\op$ from \cref{cor.D,prop.W} compose to form a rig functor $\hh\coloneqq \R\circ \T$ given by
 \begin{equation}\label{eqn.entropy_data}
 \begin{aligned}
 	\polycart&\To{\mathcal{h}}\smset\times\smset\op\\
@@ -793,13 +795,25 @@ By definition of $\hh$, we have that $A\coloneqq\dot{p}(1)$ and $B\coloneqq\Gamm
 With the interpretation of an object $(A,B)\in\smset\times\smset\op$ as a rectangle with length $A$ and width $\sqrt[A]{B}$, as in \cref{rem.geomean}, we can think of $L(A,B)=\log A -\log\sqrt[A]{B}$ as its \emph{log aspect ratio}, the log of its length divided by its width. This is a quantity that has come up in the study of vision \cites{talbot2011arc,dickinson2017separate}, though we're making no claim about whether this connection is meaningful.
 \end{remark}
 
-\begin{definition}[Empirical distribution]
+\begin{definition}[Empirical distribution]\label{def.empirical}
 Let $p\neq 0$ be a nonzero polynomial and suppose that the cardinality of $\dot{p}(1)\in\smset$ is finite, $\card\dot{p}(1)<\infty$. We define the \emph{empirical distribution defined by $p$} to be the following function $P\colon p(1)\to[0,1]$:
 \[
  P(I)\coloneqq\frac{\card p[I]}{\card\dot{p}(1)}
 \]
 Note that $1=\sum_{I\in p(1)}P(I)$, so $P$ is indeed a probability distribution.
 \end{definition}
+
+\begin{remark}\label{rem.poly_prod_monoidal}
+One may ask how to view $\poly$'s monoidal structures, especially $+$ and $\otimes$, under the correspondence from \cref{def.empirical}. Suppose given polynomials $p, q\in\poly$ with associated probability distributions $P_p$ and $P_q$. For Dirichlet product we have
+\[
+P_{p\otimes q}=P_p\otimes P_q
+\]
+where the left-hand side is the probability distribution associated to $p\otimes q$ and the right-hand side is the usual tensor (independent) product of probability distributions. For sums we have
+\[
+P_{p+q}=\frac{\dot{p}(1)}{\dot{p}(1)+\dot{q}(1)}P_p + \frac{\dot{q}(1)}{\dot{p}(1)+\dot{q}(1)}P_q
+\]
+the convex combination of $P_p$ and $Q_q$, weighted according to the relative number of draws $\dot{p}(1)$ and $\dot{q}(1)$ in each.
+\end{remark}
 
 %\begin{example}[Outcomes, samples, and draws]
 %Consider an experiment consisting of a coin; it has two outcomes, heads and tails. In this situation a sample consists of a set of draws, i.e.\ coin-flips. The polynomial $p$ corresponds to the sample: the set of outcomes is $p(1)$---in this case $p(1)=\{\text{heads, tails}\}$ has two elements---and for each outcome $i\in p(1)$ the set of draws with outcome $i$ is $p[i]$. The set $\dot{p}(1)$ is the total number of observations.
